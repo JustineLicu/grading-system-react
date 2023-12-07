@@ -15,6 +15,6 @@
   "editor.guides.bracketPairs": true,
   "editor.linkedEditing": true,
   "workbench.iconTheme": "material-icon-theme",
-  "workbench.sideBar.location": "right",
+  // "workbench.sideBar.location": "right",
   "typescript.tsdk": "node_modules/typescript/lib"
 }
