@@ -20,7 +20,7 @@ export default function SideBarMenu() {
     <>
       <div
         id="side-bar"
-        className={`sticky top-20 z-[100] my-2 ml-1 h-[90vh] flex-col items-center bg-green px-1 md:sticky md:my-3 md:ml-2  md:h-[87vh] lg:ml-3`}
+        className={`sticky top-[10vh] z-[100] h-[90vh] flex-col items-center bg-green px-1`}
       >
         {/* SIDE BAR LINKS */}
         {sidebarMenu.map((item) => (
