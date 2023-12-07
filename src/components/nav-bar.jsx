@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 
 export default function NavBar() {
@@ -18,17 +17,10 @@ export default function NavBar() {
                 id="title"
                 className="ms-2 text-lg font-medium sm:text-xl md:text-2xl lg:text-3xl"
               >
-                Account Management
+                Grading System
               </div>
             </div>
           </div>
-          <Image
-            src="/notification_icon.svg"
-            className="h-10 text-black md:h-12"
-            alt="Notification Bell"
-            height={100}
-            width={100}
-          />
         </div>
       </nav>
     </>
