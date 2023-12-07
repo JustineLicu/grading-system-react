@@ -1,0 +1,20 @@
+{
+  "editor.fontFamily": "'Operator Mono', 'JetBrainsMono NFM', 'JetBrainsMonoNL NFM', Consolas, 'Courier New', monospace",
+  // "editor.fontLigatures": true,
+  "editor.lineHeight": 24,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "reactSnippets.settings.prettierEnabled": true,
+  "reactSnippets.settings.importReactOnTop": false,
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma"
+  },
+  "editor.tabSize": 2,
+  "editor.wordWrap": "wordWrapColumn",
+  "editor.wordWrapColumn": 100,
+  "editor.guides.bracketPairs": true,
+  "editor.linkedEditing": true,
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.sideBar.location": "right",
+  "typescript.tsdk": "node_modules/typescript/lib"
+}

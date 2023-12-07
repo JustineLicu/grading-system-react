@@ -1,0 +1,18 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "prisma.prisma",
+    "pkief.material-icon-theme",
+    "dsznajder.es7-react-js-snippets",
+    "xabikos.javascriptsnippets",
+    "csstools.postcss",
+    "wayou.vscode-todo-highlight",
+    "streetsidesoftware.code-spell-checker",
+    "oderwat.indent-rainbow",
+    "yoavbls.pretty-ts-errors",
+    "bradlc.vscode-tailwindcss",
+    "chakrounanas.turbo-console-log",
+    "visualstudioexptteam.vscodeintellicode",
+    "visualstudioexptteam.intellicode-api-usage-examples"
+  ]
+}
