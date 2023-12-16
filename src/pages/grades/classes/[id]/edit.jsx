@@ -1,5 +1,6 @@
 import NavBar from '@/components/nav-bar';
 import SideBarMenu from '@/components/side-bar';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 
 export default function EditGradePage() {
@@ -14,6 +15,10 @@ export default function EditGradePage() {
   const { className, id } = router.query;
   return (
     <>
+      <Head>
+        <title>Grade Configuration | Grading System</title>
+      </Head>
+
       <NavBar />
       <main className="flex">
         <SideBarMenu />
