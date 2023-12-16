@@ -35,6 +35,11 @@ export default function GradeConfigPage() {
                 <button
                   type="button"
                   key={classDetails.id}
+                  onClick={() =>
+                    router.push(
+                      `/grades/classes/${classDetails.id}/?className=${classDetails.className}&id=${classDetails.id}`
+                    )
+                  }
                   className="mb-4 rounded-md border border-gray p-4 text-left hover:bg-yellow"
                 >
                   <h2 className=" mr-1 text-2xl font-bold text-black">{classDetails.className}</h2>

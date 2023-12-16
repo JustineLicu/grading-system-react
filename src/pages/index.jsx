@@ -8,7 +8,7 @@ export default function HomePage() {
       {/* HEADER */}
       <Head>
         <title>Index Page</title>
-      </Head>
+      </Head> 
 
       {/* NAVIGATION BAR COMPONENT */}
       <NavBar />
