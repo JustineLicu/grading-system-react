@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 const getAnnouncements = () => [
   {
     id: '1',
-    content: 'Student Jesusa Claridad is currently failing the subject ITEC-111 with a GWA of 1.25',
+    content: 'Student Jesusa Claridad is currently failing the subject ITEC-111 with a GWA of 3.25',
   },
   {
     id: '2',

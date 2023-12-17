@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -17,10 +16,15 @@ export default function SideBarMenu() {
       imageLink: '/configuration_icon.svg',
       urlLink: `/grades/config`,
     },
+    {
+      id: 4,
+      name: 'Notification',
+      imageLink: '/notification_icon.png',
+      urlLink: `/notification`,
+    },
   ];
   return (
     <>
-      
       <div
         id="side-bar"
         className={`sticky top-[10vh] z-[100] h-[90vh] flex-col items-center bg-green px-1`}
