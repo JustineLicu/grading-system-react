@@ -1,6 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap');
+
+*,
+*::before,
+*::after {
+  font-family: 'Rubik', sans-serif;
+}
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -16,6 +23,7 @@
   }
 }
 
+<<<<<<< HEAD
 body,
 * {
   font-size: 14px;
@@ -62,3 +70,6 @@ td {
 th {
   text-align: start;
 }
+=======
+body {}
+>>>>>>> 5c44ed4deaaf778d1abe4cb7999fb2b6751f48f9
