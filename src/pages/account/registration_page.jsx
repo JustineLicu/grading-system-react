@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Link from 'next/link';
 import { useState } from 'react';
 
 export default function registration_page() {
@@ -20,14 +21,14 @@ export default function registration_page() {
         <title>Registration Page</title>
       </Head>
 
-      <div class="flex h-screen items-center justify-center  bg-gray">
-        <div class="shadow-1g w-96 bg-white ">
-          <div class="font-serif">
-            <h1 class="font-rubik bg-[#2A9134] p-5 text-center font-sans text-2xl font-bold text-white">
+      <div className="flex h-screen items-center justify-center  bg-gray">
+        <div className="shadow-1g w-96 bg-white ">
+          <div className="font-serif">
+            <h1 className="font-rubik bg-[#2A9134] p-5 text-center font-sans text-2xl font-bold text-white">
               REGISTER ACCOUNT
             </h1>
           </div>
-          <form class=" p-6">
+          <form className=" p-6">
             <div className="mt-3">
               <label className="text-gray-700 mb-1 mt-1 block font-medium" htmlFor="idNumber">
                 ID Number
@@ -41,29 +42,29 @@ export default function registration_page() {
                 required
               />
             </div>
-            <div class="mt-3">
-              <label class="text-gray-700 mb-1 mt-1 block font-medium" for="email">
+            <div className="mt-3">
+              <label className="text-gray-700 mb-1 mt-1 block font-medium" htmlFor="email">
                 Email
               </label>
               <input
-                class="border-gray-300 bg-gray-100 text-gray-700 w-full appearance-none rounded border-2 px-3 py-3 pr-16 font-mono leading-tight focus:border-[#2A9134] focus:bg-white focus:outline-none"
+                className="border-gray-300 bg-gray-100 text-gray-700 w-full appearance-none rounded border-2 px-3 py-3 pr-16 font-mono leading-tight focus:border-[#2A9134] focus:bg-white focus:outline-none"
                 id="email"
                 type="text"
-                autocomplete="off"
-                autofocus
+                autoComplete="off"
+                autoFocus
                 required
               />
             </div>
-            <div class="mt-3">
-              <label class="text-gray-700 mb-1 mt-1 block font-medium" for="username">
+            <div className="mt-3">
+              <label className="text-gray-700 mb-1 mt-1 block font-medium" htmlFor="username">
                 Username
               </label>
               <input
-                class="border-gray-300 bg-gray-100 text-gray-700 w-full appearance-none rounded border-2 px-3 py-3 pr-16 font-mono leading-tight focus:border-[#2A9134] focus:bg-white focus:outline-none"
+                className="border-gray-300 bg-gray-100 text-gray-700 w-full appearance-none rounded border-2 px-3 py-3 pr-16 font-mono leading-tight focus:border-[#2A9134] focus:bg-white focus:outline-none"
                 id="username"
                 type="text"
-                autocomplete="off"
-                autofocus
+                autoComplete="off"
+                autoFocus
                 required
               />
             </div>
@@ -127,7 +128,7 @@ export default function registration_page() {
             </div>
             <button
               onClick={toggleRegisteredModal}
-              class="focus:shadow-outline mb-5 mt-5 w-full rounded bg-[#2A9134] px-4 py-3 font-medium text-white hover:bg-[rgb(2,48,32)] focus:outline-none"
+              className="focus:shadow-outline mb-5 mt-5 w-full rounded bg-[#2A9134] px-4 py-3 font-medium text-white hover:bg-[rgb(2,48,32)] focus:outline-none"
               type="button"
             >
               SIGN UP
@@ -159,12 +160,12 @@ export default function registration_page() {
                 <br></br>
                 <p className="text-center ">You can now go back to the log in page.</p>
 
-                <a
-                  href="http://localhost:3000/login_page"
-                  class="focus:shadow-outline mt-3 block w-full rounded bg-[#2A9134] px-4 py-3 text-center font-medium text-white hover:bg-[rgb(2,48,32)] focus:outline-none"
+                <Link
+                  href="/account/login_page"
+                  className="focus:shadow-outline mt-3 block w-full rounded bg-[#2A9134] px-4 py-3 text-center font-medium text-white hover:bg-[rgb(2,48,32)] focus:outline-none"
                 >
                   Continue
-                </a>
+                </Link>
               </div>
             </div>
           </div>

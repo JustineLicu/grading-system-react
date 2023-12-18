@@ -21,7 +21,7 @@ function manage_roles() {
             Hello Admin, <span className="text-gray-500 text-xl">Juan Dela Cruz!</span>
             <div className="table-details mt-4">
               <div className="label">Managing Roles</div>
-              <table class="table-auto">
+              <table className="table-auto">
                 <thead>
                   <tr>
                     <th>Name</th>

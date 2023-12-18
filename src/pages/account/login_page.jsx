@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Link from 'next/link';
 import { useState } from 'react';
 
 export default function login_page() {
@@ -37,16 +38,16 @@ export default function login_page() {
             </h1>
           </div>
           <form className="p-6">
-            <div class="mt-3">
-              <label class="text-gray-700 mb-1 mt-1 block font-medium" for="username">
+            <div className="mt-3">
+              <label className="text-gray-700 mb-1 mt-1 block font-medium" htmlFor="username">
                 Username
               </label>
               <input
-                class="border-gray-300 bg-gray-100 text-gray-700 w-full appearance-none rounded border-2 px-3 py-3 pr-16 font-mono leading-tight focus:border-[#2A9134] focus:bg-white focus:outline-none"
+                className="border-gray-300 bg-gray-100 text-gray-700 w-full appearance-none rounded border-2 px-3 py-3 pr-16 font-mono leading-tight focus:border-[#2A9134] focus:bg-white focus:outline-none"
                 id="username"
                 type="text"
-                autocomplete="off"
-                autofocus
+                autoComplete="off"
+                autoFocus
               />
             </div>
             <div className="mt-3">
@@ -77,19 +78,19 @@ export default function login_page() {
               </div>
             </div>
 
-            <div class="mt-3">
-              <label htmlFor="role" class="text -base mb-2 flex justify-center">
+            <div className="mt-3">
+              <label htmlFor="role" className="text -base mb-2 flex justify-center">
                 Sign In as
-                <input name="type" type="radio" class="ml-2 mr-1" />
+                <input name="type" type="radio" className="ml-2 mr-1" />
                 <label
-                  class="text-gray-700 mt-px cursor-pointer select-none font-light"
+                  className="text-gray-700 mt-px cursor-pointer select-none font-light"
                   htmlFor="admin"
                 >
                   Admin
                 </label>
-                <input name="type" type="radio" class="ml-2 mr-1" />
+                <input name="type" type="radio" className="ml-2 mr-1" />
                 <label
-                  class="text-gray-700 mt-px cursor-pointer select-none font-light"
+                  className="text-gray-700 mt-px cursor-pointer select-none font-light"
                   htmlFor="professor"
                 >
                   Professor
@@ -97,13 +98,13 @@ export default function login_page() {
               </label>
             </div>
 
-            <a
+            <Link
               href="#"
               onClick={toggleForgotPasswordModal}
               className="flex justify-center underline"
             >
               Forgot Password?
-            </a>
+            </Link>
 
             <button
               className="focus:shadow-outline mt-3 w-full rounded bg-[#2A9134] px-4 py-3 font-medium text-white hover:bg-[#023020] focus:outline-none"
@@ -111,13 +112,15 @@ export default function login_page() {
             >
               SIGN IN
             </button>
-            <label class="text-gray-700 mb-1 mt-1 flex justify-center font-medium">- or -</label>
-            <a
-              href="http://localhost:3000/registration_page"
-              class="focus:shadow-outline mt-3 block w-full rounded bg-[#2A9134] px-4 py-3 text-center font-medium text-white hover:bg-[rgb(2,48,32)] focus:outline-none"
+            <label className="text-gray-700 mb-1 mt-1 flex justify-center font-medium">
+              - or -
+            </label>
+            <Link
+              href="/account/registration_page"
+              className="focus:shadow-outline mt-3 block w-full rounded bg-[#2A9134] px-4 py-3 text-center font-medium text-white hover:bg-[rgb(2,48,32)] focus:outline-none"
             >
               SIGN UP
-            </a>
+            </Link>
           </form>
         </div>
       </div>

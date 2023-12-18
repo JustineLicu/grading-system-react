@@ -24,53 +24,53 @@ function profile() {
               <form className="mt-5 flex flex-col gap-5">
                 <div className="flex gap-5">
                   <div className="flex-grow">
-                    <label class="block">
-                      <span class="after:text-red-500 block text-sm font-medium text-slate-700 after:ml-0.5 after:content-['*']">
+                    <label className="block">
+                      <span className="after:text-red-500 block text-sm font-medium text-slate-700 after:ml-0.5 after:content-['*']">
                         Surname
                       </span>
                       <input
                         type="text"
                         name=""
-                        class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+                        className="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
                         placeholder="Enter surname"
                       />
                     </label>
                   </div>
                   <div className="flex-grow">
-                    <label class="block">
-                      <span class="after:text-red-500 block text-sm font-medium text-slate-700 after:ml-0.5 after:content-['*']">
+                    <label className="block">
+                      <span className="after:text-red-500 block text-sm font-medium text-slate-700 after:ml-0.5 after:content-['*']">
                         First Name
                       </span>
                       <input
                         type="text"
                         name=""
-                        class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+                        className="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
                         placeholder="Enter firstname"
                       />
                     </label>
                   </div>
                   <div className="flex-grow">
-                    <label class="block">
-                      <span class="after:text-red-500 block text-sm font-medium text-slate-700 after:ml-0.5 after:content-['*']">
+                    <label className="block">
+                      <span className="after:text-red-500 block text-sm font-medium text-slate-700 after:ml-0.5 after:content-['*']">
                         Middle Name
                       </span>
                       <input
                         type="text"
                         name=""
-                        class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+                        className="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
                         placeholder="Enter middlename"
                       />
                     </label>
                   </div>
                   <div className="flex-grow">
-                    <label class="block">
-                      <span class="after:text-red-500 block text-sm font-medium text-slate-700 after:ml-0.5 after:content-['*']">
+                    <label className="block">
+                      <span className="after:text-red-500 block text-sm font-medium text-slate-700 after:ml-0.5 after:content-['*']">
                         Suffix
                       </span>
                       <input
                         type="text"
                         name=""
-                        class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+                        className="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
                         placeholder="Enter suffix"
                       />
                     </label>
@@ -79,40 +79,40 @@ function profile() {
 
                 <div className="flex gap-5">
                   <div className="flex-grow">
-                    <label class="block">
-                      <span class="after:text-red-500 block text-sm font-medium text-slate-700 after:ml-0.5 after:content-['*']">
+                    <label className="block">
+                      <span className="after:text-red-500 block text-sm font-medium text-slate-700 after:ml-0.5 after:content-['*']">
                         Username
                       </span>
                       <input
                         type="text"
                         name=""
-                        class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+                        className="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
                         placeholder="Enter username"
                       />
                     </label>
                   </div>
                   <div className="flex-grow">
-                    <label class="block">
-                      <span class="after:text-red-500 block text-sm font-medium text-slate-700 after:ml-0.5 after:content-['*']">
+                    <label className="block">
+                      <span className="after:text-red-500 block text-sm font-medium text-slate-700 after:ml-0.5 after:content-['*']">
                         Email Address
                       </span>
                       <input
                         type="text"
                         name=""
-                        class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+                        className="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
                         placeholder="you@example.com"
                       />
                     </label>
                   </div>
                   <div className="flex-grow">
-                    <label class="block">
-                      <span class="after:text-red-500 block text-sm font-medium text-slate-700 after:ml-0.5 after:content-['*']">
+                    <label className="block">
+                      <span className="after:text-red-500 block text-sm font-medium text-slate-700 after:ml-0.5 after:content-['*']">
                         ID Number
                       </span>
                       <input
                         type="number"
                         name=""
-                        class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+                        className="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
                         placeholder="Enter ID"
                       />
                     </label>
@@ -121,27 +121,27 @@ function profile() {
 
                 <div className="flex gap-5">
                   <div className="flex-grow">
-                    <label class="block">
-                      <span class="after:text-red-500 block text-sm font-medium text-slate-700 after:ml-0.5 after:content-['*']">
+                    <label className="block">
+                      <span className="after:text-red-500 block text-sm font-medium text-slate-700 after:ml-0.5 after:content-['*']">
                         Department
                       </span>
                       <input
                         type="text"
                         name=""
-                        class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+                        className="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
                         placeholder="Enter department"
                       />
                     </label>
                   </div>
                   <div className="flex-grow">
-                    <label class="block">
-                      <span class="after:text-red-500 block text-sm font-medium text-slate-700 after:ml-0.5 after:content-['*']">
+                    <label className="block">
+                      <span className="after:text-red-500 block text-sm font-medium text-slate-700 after:ml-0.5 after:content-['*']">
                         Contact Number
                       </span>
                       <input
                         type="number"
                         name=""
-                        class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+                        className="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
                         placeholder="Enter number"
                       />
                     </label>

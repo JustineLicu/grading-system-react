@@ -23,7 +23,6 @@
   }
 }
 
-<<<<<<< HEAD
 body,
 * {
   font-size: 14px;
@@ -32,6 +31,7 @@ body,
 #root {
   width: 100%;
 }
+
 .nav {
   height: 60px;
   display: flex;
@@ -70,6 +70,3 @@ td {
 th {
   text-align: start;
 }
-=======
-body {}
->>>>>>> 5c44ed4deaaf778d1abe4cb7999fb2b6751f48f9

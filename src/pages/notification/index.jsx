@@ -10,7 +10,7 @@ const getAnnouncements = () => [
   {
     id: '2',
     content:
-      'Student Romeo Cobreta is a candidate for honors the subject ITEC 111 with a GWA of 1.00',
+      'Student Romeo Cobreta is a candidate htmlFor honors the subject ITEC 111 with a GWA of 1.00',
   },
 ];
 
