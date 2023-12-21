@@ -35,17 +35,17 @@ export default function SubjectPage() {
       <div className="flex">
         <SideBarMenu />
 
-        <div className="m-8 mb-4 flex h-screen w-full flex-col items-center justify-end bg-gray-100">
-          <div
-            className="border-black-500 relative w-3/4 flex-1 flex-grow overflow-hidden border-2 bg-white shadow-md"
-            onClick={openSubjectInfo}
-          >
-            <div className="bg-green border-b-2 p-2">
-              <h2 className="text-yellow flex justify-center text-xl font-semibold">
+        <div className="bg-gray-100 m-8 mb-4 flex h-screen w-full flex-col items-center justify-end">
+          <div className="border-black-500 relative w-3/4 flex-1 flex-grow overflow-hidden border-2 bg-white shadow-md">
+            <div className="border-b-2 bg-green p-2">
+              <h2 className="flex justify-center text-xl font-semibold text-yellow">
                 ALL SUBJECTS
               </h2>
             </div>
-            <div className="border-black-500 m-5 w-2/4 cursor-pointer rounded-lg border-2">
+            <div
+              className="border-black-500 m-5 w-2/4 cursor-pointer rounded-lg border-2"
+              onClick={openSubjectInfo}
+            >
               <div className="m-4">
                 <h1 className="text-2xl font-semibold">ITEC 116</h1>
                 <span>IT ELECTIVE 4 (SYSTEM INTEGRATION AND ARCHITECTURE 2)</span>
@@ -65,8 +65,8 @@ export default function SubjectPage() {
             <div className="w-3/4">
               <div className="rounded-lg bg-white p-4">
                 <div className="border-black-500 relative h-full flex-1 flex-grow overflow-hidden border-2 bg-white shadow-md">
-                  <div className="bg-green border-b-2 p-2">
-                    <h2 className="text-yellow flex justify-center text-xl font-semibold">
+                  <div className="border-b-2 bg-green p-2">
+                    <h2 className="flex justify-center text-xl font-semibold text-yellow">
                       ADDING OF SUBJECT
                     </h2>
                   </div>
@@ -87,7 +87,7 @@ export default function SubjectPage() {
                     <div className="m-5">
                       <h1 className="text-xl font-semibold">DOWNLOAD TEMPLATE</h1>
                       <span>This template contains required fields to list student details.</span>
-                      <button className="bg-green text-yellow mt-2 rounded-lg px-4 font-semibold">
+                      <button className="mt-2 rounded-lg bg-green px-4 font-semibold text-yellow">
                         DOWNLOAD
                       </button>
                     </div>
@@ -184,17 +184,17 @@ export default function SubjectPage() {
                       </div>
                     </div>
                   </div>
-                  <button className="bg-green text-yellow m-4 w-1/6 rounded-lg px-6 py-1">
+                  <button className="m-4 w-1/6 rounded-lg bg-green px-6 py-1 text-yellow">
                     ADD SECTION
                   </button>
                   <div className="mr-8 flex justify-end">
                     <button
-                      className="bg-green text-yellow m-4 w-1/6 px-6  py-1"
+                      className="m-4 w-1/6 bg-green px-6 py-1  text-yellow"
                       onClick={closeAddSubject}
                     >
                       CANCEL
                     </button>
-                    <button className="bg-green text-yellow  m-4 w-1/6 px-6">SAVE</button>
+                    <button className="m-4 w-1/6  bg-green px-6 text-yellow">SAVE</button>
                   </div>
                 </div>
               </div>
@@ -206,8 +206,8 @@ export default function SubjectPage() {
             <div className="w-3/4">
               <div className="rounded-lg bg-white p-4">
                 <div className="border-black-500 relative h-full flex-1 flex-grow overflow-hidden border-2 bg-white shadow-md">
-                  <div className="bg-green border-b-2 p-2">
-                    <h2 className="text-yellow flex justify-center text-xl font-semibold">
+                  <div className="border-b-2 bg-green p-2">
+                    <h2 className="flex justify-center text-xl font-semibold text-yellow">
                       SUBJECT STUDENT INFORMATION MANAGEMENT
                     </h2>
                   </div>
@@ -233,61 +233,61 @@ export default function SubjectPage() {
                       />
                     </div>
                     <div className="m-5 flex justify-end">
-                      <button className="bg-green text-yellow m-4 w-1/6 rounded-lg px-6 py-1">
+                      <button className="m-4 w-1/6 rounded-lg bg-green px-6 py-1 text-yellow">
                         BSIT 4A
                       </button>
-                      <button className="bg-green text-yellow m-4 w-1/6 rounded-lg px-6 py-1">
+                      <button className="m-4 w-1/6 rounded-lg bg-green px-6 py-1 text-yellow">
                         BSIT 4B
                       </button>
-                      <button className="bg-green text-yellow w-4/3 m-4 rounded-lg px-6 py-1">
+                      <button className="w-4/3 m-4 rounded-lg bg-green px-6 py-1 text-yellow">
                         EDIT INFORMATION
                       </button>
                     </div>
                   </div>
                   <div className="m-5 flex justify-center">
-                    <table className="border-collapse border border-gray-500 ">
+                    <table className="border-gray-500 border-collapse border ">
                       <thead>
                         <tr>
-                          <th className="border border-gray-500 p-2">STUDENT #</th>
-                          <th className="border border-gray-500 p-2">LAST NAME</th>
-                          <th className="border border-gray-500 p-2">FIRST NAME</th>
-                          <th className="border border-gray-500 p-2">MIDDLE NAME</th>
-                          <th className="border border-gray-500 p-2">COURSE</th>
+                          <th className="border-gray-500 border p-2">STUDENT #</th>
+                          <th className="border-gray-500 border p-2">LAST NAME</th>
+                          <th className="border-gray-500 border p-2">FIRST NAME</th>
+                          <th className="border-gray-500 border p-2">MIDDLE NAME</th>
+                          <th className="border-gray-500 border p-2">COURSE</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
-                          <td className="border border-gray-500 p-2">202010383</td>
-                          <td className="border border-gray-500 p-2">Buganan</td>
-                          <td className="border border-gray-500 p-2">Anthony Monel</td>
-                          <td className="border border-gray-500 p-2">Relies</td>
-                          <td className="border border-gray-500 p-2">BSIT</td>
+                          <td className="border-gray-500 border p-2">202010383</td>
+                          <td className="border-gray-500 border p-2">Buganan</td>
+                          <td className="border-gray-500 border p-2">Anthony Monel</td>
+                          <td className="border-gray-500 border p-2">Relies</td>
+                          <td className="border-gray-500 border p-2">BSIT</td>
                         </tr>
                         <tr>
-                          <td className="border border-gray-500 p-2">202010382</td>
-                          <td className="border border-gray-500 p-2">Claridad</td>
-                          <td className="border border-gray-500 p-2">Jesusa</td>
-                          <td className="border border-gray-500 p-2">Adlawan</td>
-                          <td className="border border-gray-500 p-2">BSIT</td>
+                          <td className="border-gray-500 border p-2">202010382</td>
+                          <td className="border-gray-500 border p-2">Claridad</td>
+                          <td className="border-gray-500 border p-2">Jesusa</td>
+                          <td className="border-gray-500 border p-2">Adlawan</td>
+                          <td className="border-gray-500 border p-2">BSIT</td>
                         </tr>
                         <tr>
-                          <td className="border border-gray-500 p-2">202010381</td>
-                          <td className="border border-gray-500 p-2">Cobreta</td>
-                          <td className="border border-gray-500 p-2">Romeo</td>
-                          <td className="border border-gray-500 p-2">Ceros</td>
-                          <td className="border border-gray-500 p-2">BSIT</td>
+                          <td className="border-gray-500 border p-2">202010381</td>
+                          <td className="border-gray-500 border p-2">Cobreta</td>
+                          <td className="border-gray-500 border p-2">Romeo</td>
+                          <td className="border-gray-500 border p-2">Ceros</td>
+                          <td className="border-gray-500 border p-2">BSIT</td>
                         </tr>
                       </tbody>
                     </table>
                   </div>
                   <div className="mr-8 flex justify-end">
                     <button
-                      className="bg-green text-yellow m-4 w-1/6 px-6  py-1"
+                      className="m-4 w-1/6 bg-green px-6 py-1  text-yellow"
                       onClick={closeStudentInfo}
                     >
                       CANCEL
                     </button>
-                    <button className="bg-green text-yellow  m-4 w-1/6 px-6">SAVE</button>
+                    <button className="m-4 w-1/6  bg-green px-6 text-yellow">SAVE</button>
                   </div>
                 </div>
               </div>

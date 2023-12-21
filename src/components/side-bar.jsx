@@ -25,6 +25,12 @@ export default function SideBarMenu() {
       imageLink: '/notification_icon.png',
       urlLink: `/notification`,
     },
+    {
+      id: 5,
+      name: 'Student Information',
+      imageLink: '/book-open-text.svg',
+      urlLink: `/subject`,
+    },
   ];
   return (
     <>
