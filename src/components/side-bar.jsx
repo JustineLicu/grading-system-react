@@ -3,15 +3,8 @@ import Link from 'next/link';
 
 export default function SideBarMenu() {
   const sidebarMenu = [
-    { id: 1, name: '', imageLink: '/home_icon.svg', urlLink: `/` },
     {
-      id: 2,
-      name: '',
-      imageLink: '/organizations_icon.svg',
-      urlLink: `/`,
-    },
-    {
-      id: 3,
+      id: 1,
       name: 'Announcement',
       imageLink: '/announcement_icon.svg',
       urlLink: `/`,
@@ -20,13 +13,13 @@ export default function SideBarMenu() {
       urlLink: `/grades/config`,
     },
     {
-      id: 4,
+      id: 2,
       name: 'Notification',
       imageLink: '/notification_icon.png',
       urlLink: `/notification`,
     },
     {
-      id: 5,
+      id: 3,
       name: 'Student Information',
       imageLink: '/book-open-text.svg',
       urlLink: `/subject`,
@@ -43,7 +36,7 @@ export default function SideBarMenu() {
           <Link
             href={item.urlLink}
             key={item.id}
-            className={`group relative mt-1 flex h-10 w-10 items-center justify-center rounded-md bg-yellow p-1 hover:bg-yellow md:mx-1  lg:mt-2 lg:h-12 lg:w-12
+            className={`group relative mt-1 flex h-10 w-10 items-center justify-center rounded-md border border-white p-1 hover:border-none hover:bg-yellow md:mx-1  lg:mt-2 lg:h-12 lg:w-12
             `}
           >
             <Image src={item.imageLink} alt={item.name} width={20} height={20} />
