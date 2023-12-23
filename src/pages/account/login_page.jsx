@@ -33,7 +33,8 @@ export default function login_page() {
       <div className="flex h-screen items-center justify-center bg-gray">
         <div className="w-96 bg-white shadow-lg">
           <div className="font-serif">
-            <h1 className="font-rubik bg-[#2A9134] p-5 text-center font-sans text-2xl font-bold text-white ">
+            <h1 className="font-rubik flex justify-center gap-3 bg-[#2A9134] p-5 text-center font-sans text-2xl font-bold text-white ">
+              <div className="logo">logo</div>
               WELCOME TO PORTAL
             </h1>
           </div>
