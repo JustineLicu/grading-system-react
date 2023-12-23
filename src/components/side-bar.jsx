@@ -5,6 +5,18 @@ export default function SideBarMenu() {
   const sidebarMenu = [
     {
       id: 1,
+      name: 'My Profile',
+      imageLink: '/account.svg',
+      urlLink: `/`,
+    },
+    {
+      id: 2,
+      name: 'Student Information',
+      imageLink: '/book-open-text.svg',
+      urlLink: `/subject`,
+    },
+    {
+      id: 3,
       name: 'Announcement',
       imageLink: '/announcement_icon.svg',
       urlLink: `/`,
@@ -13,16 +25,17 @@ export default function SideBarMenu() {
       urlLink: `/grades/config`,
     },
     {
-      id: 2,
+      id: 4,
       name: 'Notification',
-      imageLink: '/notification_icon.png',
+      imageLink: '/notification.svg',
       urlLink: `/notification`,
     },
+
     {
-      id: 3,
-      name: 'Student Information',
-      imageLink: '/book-open-text.svg',
-      urlLink: `/subject`,
+      id: 5,
+      name: 'Admin Profile',
+      imageLink: '/admin.svg',
+      urlLink: `/account/admin_profile`,
     },
   ];
   return (

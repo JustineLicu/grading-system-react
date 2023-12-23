@@ -1,4 +1,3 @@
-import Logo from 'img/logo.png';
 import Link from 'next/link';
 
 export default function NavBar() {
@@ -11,8 +10,8 @@ export default function NavBar() {
         >
           <div id="titles" className="flex items-center gap-5">
             <Link href={`/`}>
-              <div id="logo" className="h-10 w-10  bg-gray md:h-12 md:w-12">
-                <img src={Logo} alt="logo" className="h-full w-full object-cover" />
+              <div id="logo" className="h-10 w-10 md:h-12 md:w-12">
+                <img src="/CvSULogo.png" alt="logo" className="h-full w-full object-cover" />
               </div>
             </Link>
             <div className="leading-3 text-white">

@@ -35,7 +35,7 @@ export default function SubjectPage() {
       <div className="flex">
         <SideBarMenu />
 
-        <div className="bg-gray-100 m-8 mb-4 flex h-screen w-full flex-col items-center justify-end">
+        <div className="bg-gray-100 h-10/12 m-8 mb-4 flex w-full flex-col items-center justify-end">
           <div className="border-black-500 relative w-3/4 flex-1 flex-grow overflow-hidden border-2 bg-white shadow-md">
             <div className="border-b-2 bg-green p-2">
               <h2 className="flex justify-center text-xl font-semibold text-yellow">
@@ -49,6 +49,15 @@ export default function SubjectPage() {
               <div className="m-4">
                 <h1 className="text-2xl font-semibold">ITEC 116</h1>
                 <span>IT ELECTIVE 4 (SYSTEM INTEGRATION AND ARCHITECTURE 2)</span>
+              </div>
+            </div>
+            <div
+              className="border-black-500 m-5 w-2/4 cursor-pointer rounded-lg border-2"
+              onClick={openSubjectInfo}
+            >
+              <div className="m-4">
+                <h1 className="text-2xl font-semibold">ITEC 22A</h1>
+                <span>COMPUTER PROGRAMMING 2</span>
               </div>
             </div>
 

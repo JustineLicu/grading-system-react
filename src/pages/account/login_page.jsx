@@ -34,7 +34,9 @@ export default function login_page() {
         <div className="w-96 bg-white shadow-lg">
           <div className="font-serif">
             <h1 className="font-rubik flex justify-center gap-3 bg-[#2A9134] p-5 text-center font-sans text-2xl font-bold text-white ">
-              <div className="logo">logo</div>
+              <div id="logo" className="h-10 w-10 md:h-12 md:w-12">
+                <img src="/CvSULogo.png" alt="logo" className="h-full w-full object-cover" />
+              </div>
               WELCOME TO PORTAL
             </h1>
           </div>
