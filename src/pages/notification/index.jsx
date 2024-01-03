@@ -3,8 +3,8 @@ import SideBarMenu from '@/components/side-bar';
 import { useEffect, useState } from 'react';
 
 const host = 'http://localhost:8080';
-
-const NotificationMod = ({ userId = 2 }) => {
+//Last task : Put dynamic user id
+const NotificationMod = ({ userId = 1 }) => {
   const [notifications, setNotifications] = useState([]);
   const [toasterMessage, setToasterMessage] = useState('');
   const [loading, setLoading] = useState(false);
