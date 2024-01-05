@@ -144,7 +144,9 @@ export default function ClassesPage() {
                           <button
                             type="button"
                             onClick={() => handleDeleteClick(info.id)}
-                            className={`${editTab ? '' : 'cursor-not-allowed'} rounded-sm`}
+                            className={`${
+                              editTab ? '' : 'cursor-not-allowed'
+                            } rounded-sm active:scale-95`}
                             disabled={!editTab}
                           >
                             <Image src="/delete.svg" alt="delete" width={20} height={20} />
@@ -181,7 +183,7 @@ export default function ClassesPage() {
                 }}
                 className={`${
                   editTab ? 'hover:bg-yellow' : 'cursor-not-allowed opacity-50'
-                } border-gray px-6 py-2 text-lg font-semibold first-letter:border `}
+                } border-gray px-6 py-2 text-lg font-semibold  active:scale-95`}
                 disabled={!editTab}
               >
                 Add row
@@ -194,7 +196,7 @@ export default function ClassesPage() {
                 }
                 className={`${
                   editTab ? 'hover:bg-yellow' : 'cursor-not-allowed opacity-50'
-                } border border-gray px-6 py-2 text-lg font-semibold `}
+                } border border-gray px-6 py-2 text-lg font-semibold active:scale-95`}
                 disabled={!editTab}
               >
                 Add Column
@@ -203,7 +205,7 @@ export default function ClassesPage() {
                 <button
                   type="button"
                   onClick={() => setEditTab(false)}
-                  className="border border-gray bg-yellow px-6 py-2 text-lg font-semibold"
+                  className="border border-gray bg-yellow px-6 py-2 text-lg font-semibold active:scale-95"
                 >
                   Save
                 </button>
@@ -211,7 +213,7 @@ export default function ClassesPage() {
                 <button
                   type="button"
                   onClick={() => setEditTab(true)}
-                  className="border border-gray bg-yellow px-6 py-2 text-lg font-semibold"
+                  className="border border-gray bg-yellow px-6 py-2 text-lg font-semibold active:scale-95"
                 >
                   Edit
                 </button>

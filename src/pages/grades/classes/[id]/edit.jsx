@@ -60,7 +60,7 @@ export default function EditGradePage() {
                 onClick={() =>
                   setScores([...scores, { type: 'Assignment', items: 0, percentage: '10%' }])
                 }
-                className="my-3 border border-gray px-6 py-2 text-lg font-semibold hover:bg-yellow"
+                className="my-3 border border-gray px-6 py-2 text-lg font-semibold hover:bg-yellow active:scale-95"
               >
                 + Add
               </button>
@@ -69,7 +69,7 @@ export default function EditGradePage() {
               <button
                 type="button"
                 onClick={() => router.push(`/grades/classes/${id}?className=${className}&id=${id}`)}
-                className="border border-gray px-6 py-2 text-lg font-semibold hover:bg-yellow"
+                className="border border-gray bg-yellow px-6 py-2 text-lg font-semibold active:scale-95"
               >
                 Save
               </button>
