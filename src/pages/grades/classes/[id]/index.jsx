@@ -35,11 +35,14 @@ export default function ClassesPage() {
   ]);
 
   const handleDeleteClick = (id) => {
-    // Filter out the object with the specified studentNumber
+    // Filter out the object with the specified id
     const updatedStudentInfos = studentInfos.filter((info) => info.id !== id);
 
     // Update the state with the filtered array
     setStudentInfos(updatedStudentInfos);
+
+    // Close the delete modal
+    setShowDeleteModal(false);
   };
 
   const generateRandomId = () => {
@@ -49,6 +52,8 @@ export default function ClassesPage() {
   const router = useRouter();
   const { className, id } = router.query;
   const [editTab, setEditTab] = useState(false);
+  const [selectedRow, setSelectedRow] = useState(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   return (
     <>
@@ -81,80 +86,91 @@ export default function ClassesPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {studentInfos.map((info) => (
-                    <tr key={info.studentNumber} className="border">
-                      <td
-                        contentEditable={editTab}
-                        className={`${editTab ? 'bg-gray' : ''} border text-center`}
-                      >
-                        {info.studentNumber}
-                      </td>
-                      <td
-                        contentEditable={editTab}
-                        className={`${editTab ? 'bg-gray' : ''} border text-center`}
-                      >
-                        {info.studentName}
-                      </td>
-                      <td
-                        contentEditable={editTab}
-                        className={`${editTab ? 'bg-gray' : ''} border text-center`}
-                      >
-                        {info.assignmentScore}
-                      </td>
-                      <td
-                        contentEditable={editTab}
-                        className={`${editTab ? 'bg-gray' : ''} border text-center`}
-                      >
-                        {info.quizScore}
-                      </td>
-                      <td
-                        contentEditable={editTab}
-                        className={`${editTab ? 'bg-gray' : ''} border text-center`}
-                      >
-                        {info.midtermScore}
-                      </td>
-                      <td
-                        contentEditable={editTab}
-                        className={`${editTab ? 'bg-gray' : ''} border text-center`}
-                      >
-                        {info.finalScore}
-                      </td>
-                      <td
-                        contentEditable={editTab}
-                        className={`${editTab ? 'bg-gray' : ''} border text-center`}
-                      >
-                        {info.grade}
-                      </td>
-                      <td
-                        contentEditable={editTab}
-                        className={`${editTab ? 'bg-gray' : ''} border text-center`}
-                      >
-                        {info.unit}
-                      </td>
-                      <td
-                        contentEditable={editTab}
-                        className={`${editTab ? 'bg-gray' : ''} border text-center`}
-                      >
-                        {info.status}
-                      </td>
-                      <td
-                        className={`${editTab ? 'opacity-100' : 'opacity-50'} border text-center`}
-                      >
-                        <div className="flex w-full items-center justify-center">
-                          <button
-                            type="button"
-                            onClick={() => handleDeleteClick(info.id)}
-                            className={`${
-                              editTab ? '' : 'cursor-not-allowed'
-                            } rounded-sm active:scale-95`}
-                            disabled={!editTab}
-                          >
-                            <Image src="/delete.svg" alt="delete" width={20} height={20} />
-                          </button>
-                        </div>
+                  {studentInfos.length ? (
+                    studentInfos.map((info) => (
+                      <tr key={info.studentNumber} className="border">
+                        <td
+                          contentEditable={editTab}
+                          className={`${editTab ? 'bg-gray' : ''} border text-center`}
+                        >
+                          {info.studentNumber}
+                        </td>
+                        <td
+                          contentEditable={editTab}
+                          className={`${editTab ? 'bg-gray' : ''} border text-center`}
+                        >
+                          {info.studentName}
+                        </td>
+                        <td
+                          contentEditable={editTab}
+                          className={`${editTab ? 'bg-gray' : ''} border text-center`}
+                        >
+                          {info.assignmentScore}
+                        </td>
+                        <td
+                          contentEditable={editTab}
+                          className={`${editTab ? 'bg-gray' : ''} border text-center`}
+                        >
+                          {info.quizScore}
+                        </td>
+                        <td
+                          contentEditable={editTab}
+                          className={`${editTab ? 'bg-gray' : ''} border text-center`}
+                        >
+                          {info.midtermScore}
+                        </td>
+                        <td
+                          contentEditable={editTab}
+                          className={`${editTab ? 'bg-gray' : ''} border text-center`}
+                        >
+                          {info.finalScore}
+                        </td>
+                        <td
+                          contentEditable={editTab}
+                          className={`${editTab ? 'bg-gray' : ''} border text-center`}
+                        >
+                          {info.grade}
+                        </td>
+                        <td
+                          contentEditable={editTab}
+                          className={`${editTab ? 'bg-gray' : ''} border text-center`}
+                        >
+                          {info.unit}
+                        </td>
+                        <td
+                          contentEditable={editTab}
+                          className={`${editTab ? 'bg-gray' : ''} border text-center`}
+                        >
+                          {info.status}
+                        </td>
+                        <td
+                          className={`${editTab ? 'opacity-100' : 'opacity-50'} border text-center`}
+                        >
+                          <div className="flex w-full items-center justify-center">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setSelectedRow(info.id);
+                                setShowDeleteModal(true);
+                              }}
+                              className={`${
+                                editTab ? '' : 'cursor-not-allowed'
+                              } rounded-sm active:scale-95`}
+                              disabled={!editTab}
+                            >
+                              <Image src="/delete.svg" alt="delete" width={20} height={20} />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="10" className="border text-center">
+                        <div className="p-8">There are no datas. Try adding new row.</div>
                       </td>
                     </tr>
-                  ))}
+                  )}
                 </tbody>
               </table>
             </div>
@@ -183,7 +199,7 @@ export default function ClassesPage() {
                 }}
                 className={`${
                   editTab ? 'hover:bg-yellow' : 'cursor-not-allowed opacity-50'
-                } border-gray px-6 py-2 text-lg font-semibold  active:scale-95`}
+                } border border-gray px-6 py-2 text-lg font-semibold  active:scale-95`}
                 disabled={!editTab}
               >
                 Add row
@@ -222,6 +238,32 @@ export default function ClassesPage() {
           </div>
         </div>
       </main>
+
+      <div
+        className={`${
+          showDeleteModal ? '' : 'hidden'
+        } absolute top-0 flex h-[100vh] w-[100vw] items-center justify-center bg-black/20`}
+      >
+        <div className="flex flex-col gap-4 rounded-sm bg-green  p-4">
+          <div className="text-lg font-medium text-white">Are you sure you want to delete?</div>
+          <div className="flex justify-between">
+            <button
+              type="button"
+              onClick={() => handleDeleteClick(selectedRow)}
+              className=" bg-red px-2 py-1 text-lg font-medium text-white active:scale-95"
+            >
+              Delete
+            </button>
+            <button
+              type="button"
+              onClick={() => setShowDeleteModal(false)}
+              className="  bg-gray px-2 py-1 text-lg font-medium active:scale-95"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
