@@ -2,15 +2,17 @@ import NavBar from '@/components/nav-bar';
 import SideBarMenu from '@/components/side-bar';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 export default function EditGradePage() {
   // Fetch all classes
-  const scores = [
+  const [scores, setScores] = useState([
     { type: 'Quiz 1', items: 10, percentage: '20%' },
     { type: 'Assignment 1', items: 10, percentage: '10%' },
     { type: 'Midterm', items: 100, percentage: '30%' },
     { type: 'Final', items: 100, percentage: '40%' },
-  ];
+  ]);
+
   const router = useRouter();
   const { className, id } = router.query;
   return (
@@ -32,9 +34,9 @@ export default function EditGradePage() {
               <table className="w-2/4 border">
                 <thead>
                   <tr>
-                    <th className="border px-4 py-1 text-lg">Type</th>
-                    <th className="border px-4 py-1 text-lg">Items</th>
-                    <th className="border px-4 py-1 text-lg">Percentage</th>
+                    <th className="border px-4 py-1 text-center text-lg">Type</th>
+                    <th className="border px-4 py-1 text-center text-lg">Items</th>
+                    <th className="border px-4 py-1 text-center text-lg">Percentage</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -55,6 +57,9 @@ export default function EditGradePage() {
               </table>
               <button
                 type="button"
+                onClick={() =>
+                  setScores([...scores, { type: 'Assignment', items: 0, percentage: '10%' }])
+                }
                 className="my-3 border border-gray px-6 py-2 text-lg font-semibold hover:bg-yellow"
               >
                 + Add

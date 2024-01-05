@@ -1,13 +1,15 @@
 import NavBar from '@/components/nav-bar';
 import SideBarMenu from '@/components/side-bar';
 import Head from 'next/head';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 export default function ClassesPage() {
   // Fetch all classes
-  const studentInfos = [
+  const [studentInfos, setStudentInfos] = useState([
     {
+      id: 1,
       studentNumber: '1',
       studentName: 'Sharp',
       assignmentScore: 10,
@@ -19,6 +21,7 @@ export default function ClassesPage() {
       status: 'PASSED',
     },
     {
+      id: 2,
       studentNumber: '2',
       studentName: 'Royalz',
       assignmentScore: 10,
@@ -29,7 +32,20 @@ export default function ClassesPage() {
       unit: 3,
       status: 'PASSED',
     },
-  ];
+  ]);
+
+  const handleDeleteClick = (id) => {
+    // Filter out the object with the specified studentNumber
+    const updatedStudentInfos = studentInfos.filter((info) => info.id !== id);
+
+    // Update the state with the filtered array
+    setStudentInfos(updatedStudentInfos);
+  };
+
+  const generateRandomId = () => {
+    return Date.now() + Math.floor(Math.random() * 1000);
+  };
+
   const router = useRouter();
   const { className, id } = router.query;
   const [editTab, setEditTab] = useState(false);
@@ -51,16 +67,17 @@ export default function ClassesPage() {
             <div className=" p-8">
               <table className="w-full border">
                 <thead className="border">
-                  <tr>
-                    <th className="border p-2">Student #</th>
-                    <th className="border p-2">Student Name</th>
-                    <th className="border p-2">Assignment</th>
-                    <th className="border p-2">Quiz</th>
-                    <th className="border p-2">Midterm</th>
-                    <th className="border p-2">Finals</th>
-                    <th className="border p-2">Grade</th>
-                    <th className="border p-2">Unit</th>
-                    <th className="border p-2">Status</th>
+                  <tr className="">
+                    <th className="border p-2 text-center">Student #</th>
+                    <th className="border p-2 text-center">Student Name</th>
+                    <th className="border p-2 text-center">Assignment</th>
+                    <th className="border p-2 text-center">Quiz</th>
+                    <th className="border p-2 text-center">Midterm</th>
+                    <th className="border p-2 text-center">Finals</th>
+                    <th className="border p-2 text-center">Grade</th>
+                    <th className="border p-2 text-center">Unit</th>
+                    <th className="border p-2 text-center">Status</th>
+                    <th className="border p-2 text-center">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -120,17 +137,73 @@ export default function ClassesPage() {
                       >
                         {info.status}
                       </td>
+                      <td
+                        className={`${editTab ? 'opacity-100' : 'opacity-50'} border text-center`}
+                      >
+                        <div className="flex w-full items-center justify-center">
+                          <button
+                            type="button"
+                            onClick={() => handleDeleteClick(info.id)}
+                            className={`${editTab ? '' : 'cursor-not-allowed'} rounded-sm`}
+                            disabled={!editTab}
+                          >
+                            <Image src="/delete.svg" alt="delete" width={20} height={20} />
+                          </button>
+                        </div>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
             <div className="absolute bottom-6 right-4 flex gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  const newId = generateRandomId();
+                  setStudentInfos([
+                    ...studentInfos,
+                    {
+                      id: newId.toString(),
+                      studentNumber: `${newId
+                        .toString()
+                        .slice(newId.toString().length - 4, newId.toString().length)}`,
+                      studentName: 'John',
+                      assignmentScore: 0,
+                      quizScore: 0,
+                      midtermScore: 0,
+                      finalScore: 0,
+                      grade: 0,
+                      unit: 0,
+                      status: 'FAILED',
+                    },
+                  ]);
+                }}
+                className={`${
+                  editTab ? 'hover:bg-yellow' : 'cursor-not-allowed opacity-50'
+                } border-gray px-6 py-2 text-lg font-semibold first-letter:border `}
+                disabled={!editTab}
+              >
+                Add row
+              </button>
+
+              <button
+                type="button"
+                onClick={() =>
+                  router.push(`/grades/classes/${id}/edit?className=${className}&id=${id}`)
+                }
+                className={`${
+                  editTab ? 'hover:bg-yellow' : 'cursor-not-allowed opacity-50'
+                } border border-gray px-6 py-2 text-lg font-semibold `}
+                disabled={!editTab}
+              >
+                Add Column
+              </button>
               {editTab ? (
                 <button
                   type="button"
                   onClick={() => setEditTab(false)}
-                  className="border border-gray px-6 py-2 text-lg font-semibold hover:bg-yellow"
+                  className="border border-gray bg-yellow px-6 py-2 text-lg font-semibold"
                 >
                   Save
                 </button>
@@ -138,21 +211,11 @@ export default function ClassesPage() {
                 <button
                   type="button"
                   onClick={() => setEditTab(true)}
-                  className="border border-gray px-6 py-2 text-lg font-semibold hover:bg-yellow"
+                  className="border border-gray bg-yellow px-6 py-2 text-lg font-semibold"
                 >
                   Edit
                 </button>
               )}
-
-              <button
-                type="button"
-                onClick={() =>
-                  router.push(`/grades/classes/${id}/edit?className=${className}&id=${id}`)
-                }
-                className="border border-gray px-6 py-2 text-lg font-semibold hover:bg-yellow"
-              >
-                Add Column
-              </button>
             </div>
           </div>
         </div>
