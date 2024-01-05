@@ -3,8 +3,62 @@ import SideBarMenu from '@/components/side-bar';
 import Head from 'next/head';
 import { useState } from 'react';
 
+const host = 'http://localhost:8080';
+
 export default function SubjectPage() {
+  // Mock data for subjects
+  const subjects = [
+    {
+      id: 1,
+      code: 'ITEC 116',
+      description: 'IT ELECTIVE 4 (SYSTEM INTEGRATION AND ARCHITECTURE 2)',
+    },
+    { id: 2, code: 'ITEC 22A', description: 'COMPUTER PROGRAMMING 1' },
+    { id: 3, code: 'ITEC 22B', description: 'COMPUTER PROGRAMMING 2' },
+    // Add more subjects as needed
+  ];
+
+  // Mock data for student information
+  const studentInfo = {
+    instructor: 'John Doe',
+    subjectCode: 'ITEC 116',
+    subjectDescription: 'IT ELECTIVE 4 (SYSTEM INTEGRATION AND ARCHITECTURE 2)',
+    students: [
+      {
+        studentNumber: '202010383',
+        lastName: 'Buganan',
+        firstName: 'Anthony Monel',
+        middleName: 'Relies',
+        course: 'BSIT',
+      },
+      {
+        studentNumber: '202010382',
+        lastName: 'Claridad',
+        firstName: 'Jesusa',
+        middleName: 'Adlawan',
+        course: 'BSIT',
+      },
+      {
+        studentNumber: '202010381',
+        lastName: 'Cobreta',
+        firstName: 'Romeo',
+        middleName: 'Ceros',
+        course: 'BSIT',
+      },
+      {
+        studentNumber: '202010395',
+        lastName: 'Evangelista',
+        firstName: 'Angelo Gabriel',
+        middleName: 'Dillera',
+        course: 'BSIT',
+      },
+      // Add more students as needed
+    ],
+  };
+
   const [isAddSubjectOpen, setIsAddSubjectOpen] = useState(false);
+  const [isStudentInfoOpen, setIsStudentInfoOpen] = useState(false);
+  const [sections, setSections] = useState([]);
 
   const openAddSubject = (e) => {
     e.stopPropagation();
@@ -15,13 +69,14 @@ export default function SubjectPage() {
     setIsAddSubjectOpen(false);
   };
 
-  const [isStudentInfoOpen, setIsStudentInfoOpen] = useState(false);
   const openSubjectInfo = () => {
     setIsStudentInfoOpen(true);
   };
+
   const closeStudentInfo = () => {
     setIsStudentInfoOpen(false);
   };
+
   return (
     <div>
       {/* HEADER */}
@@ -34,7 +89,6 @@ export default function SubjectPage() {
       <NavBar />
       <div className="flex">
         <SideBarMenu />
-
         <div className="bg-gray-100 h-10/12 m-8 mb-4 flex w-full flex-col items-center justify-end">
           <div className="border-black-500 relative w-3/4 flex-1 flex-grow overflow-hidden border-2 bg-white shadow-md">
             <div className="border-b-2 bg-green p-2">
@@ -42,24 +96,18 @@ export default function SubjectPage() {
                 ALL SUBJECTS
               </h2>
             </div>
-            <div
-              className="border-black-500 m-5 w-2/4 cursor-pointer rounded-lg border-2"
-              onClick={openSubjectInfo}
-            >
-              <div className="m-4">
-                <h1 className="text-2xl font-semibold">ITEC 116</h1>
-                <span>IT ELECTIVE 4 (SYSTEM INTEGRATION AND ARCHITECTURE 2)</span>
+            {subjects.map((subject) => (
+              <div
+                key={subject.id}
+                className="border-black-500 m-5 w-2/4 cursor-pointer rounded-lg border-2"
+                onClick={openSubjectInfo}
+              >
+                <div className="m-4">
+                  <h1 className="text-2xl font-semibold">{subject.code}</h1>
+                  <span>{subject.description}</span>
+                </div>
               </div>
-            </div>
-            <div
-              className="border-black-500 m-5 w-2/4 cursor-pointer rounded-lg border-2"
-              onClick={openSubjectInfo}
-            >
-              <div className="m-4">
-                <h1 className="text-2xl font-semibold">ITEC 22A</h1>
-                <span>COMPUTER PROGRAMMING 2</span>
-              </div>
-            </div>
+            ))}
 
             <button
               className="border-black-500 absolute bottom-0 right-0 mb-14 mr-14 w-48 border-2 p-2"
@@ -209,7 +257,7 @@ export default function SubjectPage() {
               </div>
             </div>
           </div>
-        )}
+        )}{' '}
         {isStudentInfoOpen && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
             <div className="w-3/4">
@@ -227,18 +275,21 @@ export default function SubjectPage() {
                         type="text"
                         className="m-1 w-1/3 rounded-lg bg-slate-200 p-1 font-semibold"
                         placeholder="Instructor"
+                        defaultValue={studentInfo.instructor}
                       />
                       <label className="text-md ml-6 font-semibold">SUBJECT CODE</label>
                       <input
                         type="text"
                         className="m-1 w-1/3 rounded-lg bg-slate-200 p-1 font-semibold"
                         placeholder="ITEC 116"
+                        defaultValue={studentInfo.subjectCode}
                       />
                       <label className="text-md font-semibold">SUBJECT DESCRIPTION</label>
                       <input
                         type="text"
                         className="m-1 w-3/5 rounded-lg bg-slate-200 p-1 font-semibold"
                         placeholder="IT ELECTIVE 4 (SYSTEM INTEGRATION AND ARCHITECTURE 2)"
+                        defaultValue={studentInfo.subjectDescription}
                       />
                     </div>
                     <div className="m-5 flex justify-end">
@@ -251,7 +302,7 @@ export default function SubjectPage() {
                       <button className="w-4/3 m-4 rounded-lg bg-green px-6 py-1 text-yellow">
                         EDIT INFORMATION
                       </button>
-                    </div>
+                    </div>{' '}
                   </div>
                   <div className="m-5 flex justify-center">
                     <table className="border-gray-500 border-collapse border ">
@@ -265,39 +316,19 @@ export default function SubjectPage() {
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td className="border-gray-500 border p-2">202010383</td>
-                          <td className="border-gray-500 border p-2">Buganan</td>
-                          <td className="border-gray-500 border p-2">Anthony Monel</td>
-                          <td className="border-gray-500 border p-2">Relies</td>
-                          <td className="border-gray-500 border p-2">BSIT</td>
-                        </tr>
-                        <tr>
-                          <td className="border-gray-500 border p-2">202010382</td>
-                          <td className="border-gray-500 border p-2">Claridad</td>
-                          <td className="border-gray-500 border p-2">Jesusa</td>
-                          <td className="border-gray-500 border p-2">Adlawan</td>
-                          <td className="border-gray-500 border p-2">BSIT</td>
-                        </tr>
-                        <tr>
-                          <td className="border-gray-500 border p-2">202010381</td>
-                          <td className="border-gray-500 border p-2">Cobreta</td>
-                          <td className="border-gray-500 border p-2">Romeo</td>
-                          <td className="border-gray-500 border p-2">Ceros</td>
-                          <td className="border-gray-500 border p-2">BSIT</td>
-                        </tr>
+                        {studentInfo.students.map((student) => (
+                          <tr key={student.studentNumber}>
+                            <td className="border-gray-500 border p-2">{student.studentNumber}</td>
+                            <td className="border-gray-500 border p-2">{student.lastName}</td>
+                            <td className="border-gray-500 border p-2">{student.firstName}</td>
+                            <td className="border-gray-500 border p-2">{student.middleName}</td>
+                            <td className="border-gray-500 border p-2">{student.course}</td>
+                          </tr>
+                        ))}
                       </tbody>
                     </table>
                   </div>
-                  <div className="mr-8 flex justify-end">
-                    <button
-                      className="m-4 w-1/6 bg-green px-6 py-1  text-yellow"
-                      onClick={closeStudentInfo}
-                    >
-                      CANCEL
-                    </button>
-                    <button className="m-4 w-1/6  bg-green px-6 text-yellow">SAVE</button>
-                  </div>
+                  <div className="mr-8 flex justify-end">{/* ... (your existing buttons) */}</div>
                 </div>
               </div>
             </div>
