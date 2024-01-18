@@ -2,6 +2,8 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useState } from 'react';
 
+const host = 'http://localhost:8080';
+
 export default function login_page() {
   const [showPassword, setShowPassword] = useState(false);
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
@@ -22,6 +24,70 @@ export default function login_page() {
   const handleResetConfirmation = () => {
     toggleResetConfirmationModal();
     toggleForgotPasswordModal();
+  };
+
+  const handleLogin = async () => {
+    try {
+      const response = await fetch(`${host}/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `username=${username}&password=${password}`,
+      });
+
+      if (response.ok) {
+        console.log('Login successful');
+        getCurrentUser();
+      } else {
+        console.error('Login failed');
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+    }
+  };
+
+  const getCurrentUser = async () => {
+    try {
+      const response = await fetch(`${host}/auth/user`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          // Include any necessary authentication headers, e.g., token
+        },
+      });
+
+      if (response.ok) {
+        const userData = await response.json();
+        console.log('Current user:', userData);
+        // Handle setting user data in your application state if needed
+      } else {
+        console.error('Failed to get current user');
+      }
+    } catch (error) {
+      console.error('Error during current user request:', error);
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      const response = await fetch(`${host}/auth/logout`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          // Include any necessary authentication headers, e.g., token
+        },
+      });
+
+      if (response.ok) {
+        console.log('Logout successful');
+        // Perform additional logout logic, e.g., redirect to login page
+      } else {
+        console.error('Logout failed');
+      }
+    } catch (error) {
+      console.error('Error during logout:', error);
+    }
   };
 
   return (
@@ -110,6 +176,7 @@ export default function login_page() {
             </Link>
 
             <button
+              onClick={handleLogin}
               className="focus:shadow-outline mt-3 w-full rounded bg-[#2A9134] px-4 py-3 font-medium text-white hover:bg-[#023020] focus:outline-none"
               type="button"
             >

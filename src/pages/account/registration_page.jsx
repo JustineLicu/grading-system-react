@@ -1,3 +1,4 @@
+import axios from 'axios';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -12,6 +13,33 @@ export default function registration_page() {
 
   const toggleRegisteredModal = () => {
     setShowRegisteredModal(!showRegisteredModal);
+  };
+
+  const [registrationError, setRegistrationError] = useState(null);
+
+  const handleRegistration = async () => {
+    try {
+      const response = await axios.post('http://localhost:8080/auth/register', {
+        idNumber: '2',
+        email: 'user2@example.com',
+        username: 'user2',
+        password: 'password',
+      });
+
+      if (response.status === 200) {
+        // Registration successful, show the modal
+        toggleRegisteredModal();
+      } else {
+        // Handle other response statuses or error scenarios
+        setRegistrationError('Registration failed. Please try again.');
+      }
+    } catch (error) {
+      console.error('Registration error:', error);
+      console.log('Error properties:', Object.keys(error));
+
+      // Ensure that setRegistrationError is a valid function
+      setRegistrationError('An error occurred during registration.');
+    }
   };
 
   return (
@@ -130,7 +158,10 @@ export default function registration_page() {
               </div>
             </div>
             <button
-              onClick={toggleRegisteredModal}
+              onClick={() => {
+                toggleRegisteredModal();
+                handleRegistration();
+              }}
               className="focus:shadow-outline mb-5 mt-5 w-full rounded bg-[#2A9134] px-4 py-3 font-medium text-white hover:bg-[rgb(2,48,32)] focus:outline-none"
               type="button"
             >
