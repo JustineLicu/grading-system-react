@@ -7,7 +7,7 @@ export default function SideBarMenu() {
       id: 1,
       name: 'My Profile',
       imageLink: '/account.svg',
-      urlLink: `/`,
+      urlLink: `/account/admin_profile`,
     },
     {
       id: 2,
