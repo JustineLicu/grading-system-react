@@ -150,7 +150,6 @@ function admin_profile() {
 
                 <div className="button flex justify-end gap-3">
                   <button className="border p-2 text-xs">Update Profile</button>
-                  <button className="border p-2 text-xs">Manage Roles</button>
                   <button className="border p-2 text-xs">Change Password</button>
                 </div>
               </form>

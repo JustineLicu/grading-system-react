@@ -1,13 +1,17 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 const host = 'http://localhost:8080';
 
-export default function login_page() {
+const LoginPage = () => {
+  const router = useRouter();
+  const [credentials, setCredentials] = useState({ username: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
   const [showResetConfirmationModal, setShowResetConfirmationModal] = useState(false);
+  const [userData, setUserData] = useState(null); // Add state for user data
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -21,29 +25,37 @@ export default function login_page() {
     setShowResetConfirmationModal(!showResetConfirmationModal);
   };
 
-  const handleResetConfirmation = () => {
-    toggleResetConfirmationModal();
-    toggleForgotPasswordModal();
+  const handleChange = (e) => {
+    setCredentials((prevCredentials) => ({ ...prevCredentials, [e.target.name]: e.target.value }));
   };
 
   const handleLogin = async () => {
+    if (!credentials.username || !credentials.password) {
+      alert('Username and password are required.');
+      return;
+    }
+
     try {
       const response = await fetch(`${host}/auth/login`, {
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: `username=${username}&password=${password}`,
+        body: new URLSearchParams(credentials).toString(),
       });
 
       if (response.ok) {
         console.log('Login successful');
         getCurrentUser();
+        router.push('/account/profile'); // Redirect to the profile page
       } else {
-        console.error('Login failed');
+        const responseData = await response.json();
+        handleError(responseData, response.status);
       }
     } catch (error) {
-      console.error('Error during login:', error);
+      console.error('Error during login:', error.message);
+      alert('An unexpected error occurred. Please try again.');
     }
   };
 
@@ -51,51 +63,41 @@ export default function login_page() {
     try {
       const response = await fetch(`${host}/auth/user`, {
         method: 'GET',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
-          // Include any necessary authentication headers, e.g., token
         },
       });
 
       if (response.ok) {
-        const userData = await response.json();
-        console.log('Current user:', userData);
-        // Handle setting user data in your application state if needed
+        const user = await response.json();
+        setUserData(user); // Update the user data state
       } else {
-        console.error('Failed to get current user');
+        handleError(response);
       }
     } catch (error) {
-      console.error('Error during current user request:', error);
+      console.error('Error fetching current user:', error.message);
     }
   };
 
-  const handleLogout = async () => {
-    try {
-      const response = await fetch(`${host}/auth/logout`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          // Include any necessary authentication headers, e.g., token
-        },
-      });
-
-      if (response.ok) {
-        console.log('Logout successful');
-        // Perform additional logout logic, e.g., redirect to login page
-      } else {
-        console.error('Logout failed');
-      }
-    } catch (error) {
-      console.error('Error during logout:', error);
+  const handleError = (response) => {
+    if (response.status === 401) {
+      alert('Authentication failed: Invalid credentials');
+    } else {
+      alert(`Request failed. Status: ${response.status}`);
     }
   };
+
+  useEffect(() => {
+    getCurrentUser();
+  }, []);
 
   return (
     <>
-      {/* HEADER */}
       <Head>
         <title>Login Page</title>
       </Head>
+
       <div className="flex h-screen items-center justify-center bg-gray">
         <div className="w-96 bg-white shadow-lg">
           <div className="font-serif">
@@ -115,8 +117,10 @@ export default function login_page() {
                 className="border-gray-300 bg-gray-100 text-gray-700 w-full appearance-none rounded border-2 px-3 py-3 pr-16 font-mono leading-tight focus:border-[#2A9134] focus:bg-white focus:outline-none"
                 id="username"
                 type="text"
+                name="username"
                 autoComplete="off"
                 autoFocus
+                onChange={handleChange}
               />
             </div>
             <div className="mt-3">
@@ -143,30 +147,11 @@ export default function login_page() {
                   id="password"
                   type={showPassword ? 'text' : 'password'}
                   autoComplete="off"
+                  name="password"
+                  onChange={handleChange}
                 />
               </div>
             </div>
-
-            <div className="mt-3">
-              <label htmlFor="role" className="text -base mb-2 flex justify-center">
-                Sign In as
-                <input name="type" type="radio" className="ml-2 mr-1" />
-                <label
-                  className="text-gray-700 mt-px cursor-pointer select-none font-light"
-                  htmlFor="admin"
-                >
-                  Admin
-                </label>
-                <input name="type" type="radio" className="ml-2 mr-1" />
-                <label
-                  className="text-gray-700 mt-px cursor-pointer select-none font-light"
-                  htmlFor="professor"
-                >
-                  Professor
-                </label>
-              </label>
-            </div>
-
             <Link
               href="#"
               onClick={toggleForgotPasswordModal}
@@ -174,9 +159,8 @@ export default function login_page() {
             >
               Forgot Password?
             </Link>
-
             <button
-              onClick={handleLogin}
+              onClick={async () => await handleLogin()}
               className="focus:shadow-outline mt-3 w-full rounded bg-[#2A9134] px-4 py-3 font-medium text-white hover:bg-[#023020] focus:outline-none"
               type="button"
             >
@@ -191,89 +175,100 @@ export default function login_page() {
             >
               SIGN UP
             </Link>
+            {/* Reset Confirmation Modal */}
+            {showResetConfirmationModal && (
+              <div className="fixed inset-0 overflow-y-auto">
+                {/* Reset Confirmation Modal JSX */}
+                <div className="flex min-h-screen items-end justify-center px-4 pb-20 pt-4 text-center sm:block sm:p-0">
+                  {/* Background overlay */}
+                  <div className="fixed inset-0 transition-opacity" aria-hidden="true">
+                    <div className="bg-gray-500 absolute inset-0 opacity-75"></div>
+                  </div>
+
+                  {/* Modal */}
+                  <span
+                    className="hidden sm:inline-block sm:h-screen sm:align-middle"
+                    aria-hidden="true"
+                  >
+                    &#8203;
+                  </span>
+                  <div className="inline-block transform overflow-hidden rounded-lg bg-white text-left align-bottom shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:align-middle">
+                    {/* Modal Content */}
+                    <div className="bg-white p-4">
+                      <h1 className="mb-4 text-center text-2xl font-bold">Forgot Password</h1>
+
+                      <p className="text-center font-bold">
+                        A mail has been sent to your E-Mail account.
+                      </p>
+                      <br></br>
+                      <p className="text-center ">
+                        Please follow the instructions from the mail and go back to the portal's
+                        login page. Thank you!
+                      </p>
+
+                      <button
+                        onClick={handleResetConfirmation}
+                        className="mt-3 w-full rounded bg-[#2A9134] px-4 py-3 font-medium text-white hover:bg-[#023020] focus:outline-none"
+                      >
+                        Continue
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Forgot Password Modal */}
+            {showForgotPasswordModal && (
+              <div className="fixed inset-0 overflow-y-auto">
+                {/* Forgot Password Modal JSX */}
+                <div className="flex min-h-screen items-end justify-center px-4 pb-20 pt-4 text-center sm:block sm:p-0">
+                  {/* Background overlay */}
+                  <div className="fixed inset-0 transition-opacity" aria-hidden="true">
+                    <div className="bg-gray-500 absolute inset-0 opacity-75"></div>
+                  </div>
+
+                  {/* Modal */}
+                  <span
+                    className="hidden sm:inline-block sm:h-screen sm:align-middle"
+                    aria-hidden="true"
+                  >
+                    &#8203;
+                  </span>
+                  <div className="inline-block transform overflow-hidden rounded-lg bg-white text-left align-bottom shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:align-middle">
+                    {/* Modal Content */}
+                    <div className="bg-white p-4">
+                      <h1 className="mb-4 text-center text-2xl font-bold">Forgot Password</h1>
+                      {/* Add your forgot password form or instructions here */}
+                      <p>Enter your email to reset your password.</p>
+                      {/* Example: */}
+                      <input
+                        type="email"
+                        placeholder="Enter your email"
+                        className="border-gray-300 bg-gray-100 text-gray-700 w-full appearance-none rounded border-2 px-3 py-3 pr-16 font-mono leading-tight focus:border-[#2A9134] focus:bg-white focus:outline-none"
+                      />
+                      <button
+                        onClick={toggleResetConfirmationModal}
+                        className="mt-3 w-full rounded bg-[#2A9134] px-4 py-3 font-medium text-white hover:bg-[#023020] focus:outline-none"
+                      >
+                        Continue
+                      </button>
+                      <button
+                        onClick={toggleForgotPasswordModal}
+                        className="bg-gray-300 text-gray-700 hover:bg-gray-400 mt-3 w-full rounded px-4 py-3 font-medium focus:outline-none"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </form>
         </div>
       </div>
-
-      {showForgotPasswordModal && (
-        <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex min-h-screen items-end justify-center px-4 pb-20 pt-4 text-center sm:block sm:p-0">
-            {/* Background overlay */}
-            <div className="fixed inset-0 transition-opacity" aria-hidden="true">
-              <div className="bg-gray-500 absolute inset-0 opacity-75"></div>
-            </div>
-
-            {/* Modal */}
-            <span className="hidden sm:inline-block sm:h-screen sm:align-middle" aria-hidden="true">
-              &#8203;
-            </span>
-            <div className="inline-block transform overflow-hidden rounded-lg bg-white text-left align-bottom shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:align-middle">
-              {/* Modal Content */}
-              <div className="bg-white p-4">
-                <h1 className="mb-4 text-center text-2xl font-bold">Forgot Password</h1>
-                {/* Add your forgot password form or instructions here */}
-                <p>Enter your email to reset your password.</p>
-                {/* Example: */}
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="border-gray-300 bg-gray-100 text-gray-700 w-full appearance-none rounded border-2 px-3 py-3 pr-16 font-mono leading-tight focus:border-[#2A9134] focus:bg-white focus:outline-none"
-                />
-                <button
-                  onClick={toggleResetConfirmationModal}
-                  className="mt-3 w-full rounded bg-[#2A9134] px-4 py-3 font-medium text-white hover:bg-[#023020] focus:outline-none"
-                >
-                  Continue
-                </button>
-                <button
-                  onClick={toggleForgotPasswordModal}
-                  className="bg-gray-300 text-gray-700 hover:bg-gray-400 mt-3 w-full rounded px-4 py-3 font-medium focus:outline-none"
-                >
-                  Cancel
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {showResetConfirmationModal && (
-        <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex min-h-screen items-end justify-center px-4 pb-20 pt-4 text-center sm:block sm:p-0">
-            {/* Background overlay */}
-            <div className="fixed inset-0 transition-opacity" aria-hidden="true">
-              <div className="bg-gray-500 absolute inset-0 opacity-75"></div>
-            </div>
-
-            {/* Modal */}
-            <span className="hidden sm:inline-block sm:h-screen sm:align-middle" aria-hidden="true">
-              &#8203;
-            </span>
-            <div className="inline-block transform overflow-hidden rounded-lg bg-white text-left align-bottom shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:align-middle">
-              {/* Modal Content */}
-              <div className="bg-white p-4">
-                <h1 className="mb-4 text-center text-2xl font-bold">Forgot Password</h1>
-
-                <p className="text-center font-bold">
-                  A mail has been sent to your E-Mail account.
-                </p>
-                <br></br>
-                <p className="text-center ">
-                  Please follow the instructions from the mail and go back to the portal's login
-                  page. Thank you!
-                </p>
-
-                <button
-                  onClick={handleResetConfirmation}
-                  className="mt-3 w-full rounded bg-[#2A9134] px-4 py-3 font-medium text-white hover:bg-[#023020] focus:outline-none"
-                >
-                  Continue
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </>
   );
-}
+};
+
+export default LoginPage;

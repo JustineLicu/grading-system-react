@@ -189,7 +189,9 @@ const NotificationMod = () => {
                 <div className="spinner"></div>
               </div>
             ) : (
-              <div className="mb-2 p-3">
+              <div
+                className="mb-2 max-h-80 overflow-y-auto p-3" // Adjust max height as needed
+              >
                 {notifications.map((notification) => (
                   <div
                     key={notification.id}
@@ -222,7 +224,6 @@ const NotificationMod = () => {
                       </div>
                     </div>
                     <div className="flex items-center justify-between">
-                      <p className="font-bold">Student ID: {notification.studentId}</p>
                       <div className="flex space-x-2">
                         <button
                           className="rounded-full bg-green p-2 font-bold text-white"
