@@ -70,109 +70,102 @@ export default function ClassesPage() {
               <h2 className="text-2xl font-bold text-white">Subject - {className}</h2>
             </div>
             <div className=" p-8">
-              <table className="w-full border">
-                <thead className="border">
-                  <tr className="">
-                    <th className="border p-2 text-center">Student #</th>
-                    <th className="border p-2 text-center">Student Name</th>
-                    <th className="border p-2 text-center">Assignment</th>
-                    <th className="border p-2 text-center">Quiz</th>
-                    <th className="border p-2 text-center">Midterm</th>
-                    <th className="border p-2 text-center">Finals</th>
-                    <th className="border p-2 text-center">Grade</th>
-                    <th className="border p-2 text-center">Unit</th>
-                    <th className="border p-2 text-center">Status</th>
-                    <th className="border p-2 text-center">Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {studentInfos.length ? (
-                    studentInfos.map((info) => (
-                      <tr key={info.studentNumber} className="border">
-                        <td
-                          contentEditable={editTab}
-                          className={`${editTab ? 'bg-gray' : ''} border text-center`}
-                        >
-                          {info.studentNumber}
-                        </td>
-                        <td
-                          contentEditable={editTab}
-                          className={`${editTab ? 'bg-gray' : ''} border text-center`}
-                        >
-                          {info.studentName}
-                        </td>
-                        <td
-                          contentEditable={editTab}
-                          className={`${editTab ? 'bg-gray' : ''} border text-center`}
-                        >
-                          {info.assignmentScore}
-                        </td>
-                        <td
-                          contentEditable={editTab}
-                          className={`${editTab ? 'bg-gray' : ''} border text-center`}
-                        >
-                          {info.quizScore}
-                        </td>
-                        <td
-                          contentEditable={editTab}
-                          className={`${editTab ? 'bg-gray' : ''} border text-center`}
-                        >
-                          {info.midtermScore}
-                        </td>
-                        <td
-                          contentEditable={editTab}
-                          className={`${editTab ? 'bg-gray' : ''} border text-center`}
-                        >
-                          {info.finalScore}
-                        </td>
-                        <td
-                          contentEditable={editTab}
-                          className={`${editTab ? 'bg-gray' : ''} border text-center`}
-                        >
-                          {info.grade}
-                        </td>
-                        <td
-                          contentEditable={editTab}
-                          className={`${editTab ? 'bg-gray' : ''} border text-center`}
-                        >
-                          {info.unit}
-                        </td>
-                        <td
-                          contentEditable={editTab}
-                          className={`${editTab ? 'bg-gray' : ''} border text-center`}
-                        >
-                          {info.status}
-                        </td>
-                        <td
-                          className={`${editTab ? 'opacity-100' : 'opacity-50'} border text-center`}
-                        >
-                          <div className="flex w-full items-center justify-center">
-                            <button
-                              type="button"
-                              onClick={() => {
-                                setSelectedRow(info.id);
-                                setShowDeleteModal(true);
-                              }}
-                              className={`${
-                                editTab ? '' : 'cursor-not-allowed'
-                              } rounded-sm active:scale-95`}
-                              disabled={!editTab}
-                            >
-                              <Image src="/delete.svg" alt="delete" width={20} height={20} />
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan="10" className="border text-center">
-                        <div className="p-8">There are no datas. Try adding new row.</div>
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
+              <div className="flex">
+                <div className="w-[10%] border p-2 text-center">Student #</div>
+                <div className="w-[10%] border p-2 text-center">Student Name</div>
+                <div className="w-[10%] border p-2 text-center">Assignment</div>
+                <div className="w-[10%] border p-2 text-center">Quiz</div>
+                <div className="w-[10%] border p-2 text-center">Midterm</div>
+                <div className="w-[10%] border p-2 text-center">Finals</div>
+                <div className="w-[10%] border p-2 text-center">Grade</div>
+                <div className="w-[10%] border p-2 text-center">Unit</div>
+                <div className="w-[10%] border p-2 text-center">Status</div>
+                <div className="w-[10%] border p-2 text-center">Action</div>
+              </div>
+              {studentInfos.map((info) => (
+                <div className="mb-1 flex w-full">
+                  <input
+                    type="text"
+                    name=""
+                    id="student-number"
+                    className={`${editTab ? '' : 'bg-gray'} w-[10%] border  text-center`}
+                    value={info.studentNumber}
+                  />
+                  <input
+                    type="text"
+                    name=""
+                    id="student-name"
+                    className={`${editTab ? '' : 'bg-gray'} w-[10%] border  text-center`}
+                    value={info.studentName}
+                  />
+                  <input
+                    type="text"
+                    name=""
+                    id="assignment-score"
+                    className={`${editTab ? '' : 'bg-gray'} w-[10%] border  text-center`}
+                    value={info.assignmentScore}
+                  />
+                  <input
+                    type="text"
+                    name=""
+                    id="quiz-score"
+                    className={`${editTab ? '' : 'bg-gray'} w-[10%] border  text-center`}
+                    value={info.quizScore}
+                  />
+                  <input
+                    type="text"
+                    name=""
+                    id="midterm-score"
+                    className={`${editTab ? '' : 'bg-gray'} w-[10%] border  text-center`}
+                    value={info.midtermScore}
+                  />
+                  <input
+                    type="text"
+                    name=""
+                    id="final-score"
+                    className={`${editTab ? '' : 'bg-gray'} w-[10%] border  text-center`}
+                    value={info.finalScore}
+                  />
+                  <input
+                    type="text"
+                    name=""
+                    id="grade"
+                    className={`${editTab ? '' : 'bg-gray'} w-[10%] border  text-center`}
+                    value={info.grade}
+                  />
+                  <input
+                    type="text"
+                    name=""
+                    id="unit"
+                    className={`${editTab ? '' : 'bg-gray'} w-[10%] border  text-center`}
+                    value={info.unit}
+                  />
+                  <select
+                    id=""
+                    className={`${
+                      editTab ? 'bg-transparent' : 'bg-gray'
+                    } w-[10%] border  text-center`}
+                  >
+                    <option value="FAILED">FAILED</option>
+                    <option value="PASSED">PASSED</option>
+                  </select>
+                  <div className="flex w-[10%] items-center justify-center border">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSelectedRow(info.id);
+                        setShowDeleteModal(true);
+                      }}
+                      className={`${
+                        editTab ? '' : 'cursor-not-allowed opacity-50'
+                      } rounded-sm active:scale-95`}
+                      disabled={!editTab}
+                    >
+                      <Image src="/delete.svg" alt="delete" width={20} height={20} />
+                    </button>
+                  </div>
+                </div>
+              ))}
             </div>
             <div className="absolute bottom-6 right-4 flex gap-2">
               <button
