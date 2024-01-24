@@ -37,12 +37,16 @@ const NotificationMod = () => {
       const notificationsResponse = await fetch(`${host}/outbox`, {
         credentials: 'include',
       });
-      const notificationsData = await notificationsResponse.json();
 
-      if (Array.isArray(notificationsData)) {
-        setNotifications(notificationsData);
+      if (notificationsResponse.ok) {
+        const notificationsData = await notificationsResponse.json();
+        if (Array.isArray(notificationsData)) {
+          setNotifications(notificationsData);
+        } else {
+          setNotifications([]);
+        }
       } else {
-        setNotifications([]);
+        showToast(`Error fetching outbox emails: ${notificationsResponse.statusText}`, false);
       }
     } catch (error) {
       showToast(`Error fetching outbox emails: ${error}`, false);
