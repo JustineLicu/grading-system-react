@@ -236,7 +236,7 @@ export default function RegistrationPage() {
               </label>
               <input
                 id="contactNumber"
-                type="text"
+                type="number"
                 autoComplete="off"
                 required
                 value={formData.contactNumber}
