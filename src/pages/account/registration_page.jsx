@@ -87,27 +87,34 @@ export default function RegistrationPage() {
     try {
       const response = await fetch('http://localhost:8080/auth/register', {
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           idNumber: formData.idNumber,
+          firstName: formData.firstName,
+          middleName: formData.middleName,
+          lastName: formData.lastName,
+          nameSuffix: formData.nameSuffix,
           email: formData.email,
           username: formData.username,
+          contactNumber: formData.contactNumber,
+          department: formData.department,
           password: formData.password,
         }),
       });
 
       if (response.ok) {
-        console.log('Registration successful!');
+        console.log('User created successfully!');
         toggleRegisteredModal();
       } else {
         const errorData = await response.json();
-        setRegistrationError(errorData.message || 'Registration failed. Please try again.');
+        setRegistrationError(errorData.message || 'User creation failed. Please try again.');
       }
     } catch (error) {
-      console.error('Registration error:', error);
-      setRegistrationError('An error occurred during registration.');
+      console.error('User creation error:', error);
+      setRegistrationError('An error occurred during user creation.');
     }
   };
 
@@ -134,7 +141,7 @@ export default function RegistrationPage() {
               </label>
               <input
                 id="idNumber"
-                type="text"
+                type="number"
                 autoComplete="off"
                 autoFocus
                 required
