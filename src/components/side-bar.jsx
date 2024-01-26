@@ -92,7 +92,7 @@ export default function SideBarMenu() {
       id: 3,
       name: 'Grade Configuration',
       imageLink: '/configuration_icon.svg',
-      urlLink: `/configuration`,
+      urlLink: `/reportConfig`,
     },
     {
       id: 4,
