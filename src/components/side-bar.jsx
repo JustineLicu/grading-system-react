@@ -103,9 +103,14 @@ export default function SideBarMenu() {
       imageLink: '/notification.svg',
       urlLink: `/notification`,
     },
-
     {
       id: 5,
+      name: 'Admin Profile',
+      imageLink: '/create.png',
+      urlLink: `/generation/students`,
+    },
+    {
+      id: 6,
       name: 'Admin Profile',
       imageLink: '/logout.png',
       onClick: () => setShowLogoutModal(true),
