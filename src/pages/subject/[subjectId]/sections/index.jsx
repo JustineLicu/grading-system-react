@@ -96,20 +96,20 @@ const SectionsView = () => {
                 <div>
                   {subjects.map((subject) => (
                     <div key={subject.id}>
-                      <label className="text-md font-semibold">INSTRUCTOR</label>
+                      {/* <label className="text-md font-semibold">INSTRUCTOR</label>
                       <span className="m-1 w-1/3 rounded-lg bg-slate-200 p-1 font-semibold">
                         {subject.instructor}
-                      </span>
+                      </span> */}
 
-                      <label className="text-md ml-10 font-semibold">SUBJECT CODE</label>
+                      {/* <label className="text-md ml-10 font-semibold">SUBJECT CODE</label>
                       <span className="m-1 w-1/3 rounded-lg bg-slate-200 p-1 font-semibold">
                         {subject.subjectCode}
-                      </span>
+                      </span> */}
 
-                      <label className="text-md font-semibold">SUBJECT DESCRIPTION</label>
+                      {/* <label className="text-md font-semibold">SUBJECT DESCRIPTION</label>
                       <span className="m-1 w-3/5 rounded-lg bg-slate-200 p-1 font-semibold">
                         {subject.subjectDescription}
-                      </span>
+                      </span> */}
                     </div>
                   ))}
                 </div>
@@ -133,17 +133,17 @@ const SectionsView = () => {
                     </button>
                   ))}
 
-                  <button
+                  {/* <button
                     className="w-4/3 m-4 rounded-lg bg-green px-6 py-1 text-yellow"
                     onClick={openSubjectInfo}
                   >
                     EDIT INFORMATION
-                  </button>
+                  </button> */}
                 </div>
               </div>
               <div className="m-5 flex justify-center">
-                <table className="border-gray-500 border-collapse border ">
-                  <thead>
+                {/* <table className="border-gray-500 border-collapse border "> */}
+                {/* <thead>
                     <tr>
                       <th className="border-gray-500 border p-2">STUDENT #</th>
                       <th className="border-gray-500 border p-2">LAST NAME</th>
@@ -151,9 +151,9 @@ const SectionsView = () => {
                       <th className="border-gray-500 border p-2">MIDDLE NAME</th>
                       <th className="border-gray-500 border p-2">COURSE</th>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {/* {studentInfo.students.map((student) => (
+                  </thead> */}
+                {/* <tbody> */}
+                {/* {studentInfo.students.map((student) => (
                             <tr key={student.studentNumber}>
                               <td className="border-gray-500 border p-2">{student.studentNumber}</td>
                               <td className="border-gray-500 border p-2">{student.lastName}</td>
@@ -162,8 +162,8 @@ const SectionsView = () => {
                               <td className="border-gray-500 border p-2">{student.course}</td>
                             </tr>
                           ))} */}
-                  </tbody>
-                </table>
+                {/* </tbody> */}
+                {/* </table> */}
               </div>
             </div>
           </div>
