@@ -1,17 +1,21 @@
-// sectionsView.jsx
 import NavBar from '@/components/nav-bar';
 import SideBarMenu from '@/components/side-bar';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 const host = 'http://localhost:8080';
 
 const SectionsView = () => {
-  const [subjectId, setSubjectId] = useState(null);
-  const [sections, setSections] = useState([]);
+  const [subjectInfo, setSubjectInfo] = useState({});
   const [isStudentInfoOpen, setIsStudentInfoOpen] = useState(false);
+  const router = useRouter();
+  const subjectId = router.query.subjectId;
+  const [section, setSection] = useState([]);
+  const [subjects, setSubjects] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  const fetchSections = async () => {
+  const fetchSection = async () => {
     try {
       const sectionResponse = await fetch(`${host}/subjects/${subjectId}/sections`, {
         method: 'GET',
@@ -20,36 +24,51 @@ const SectionsView = () => {
           'Content-Type': 'application/json',
         },
       });
-
-      if (sectionResponse.ok) {
-        const sectionData = await sectionResponse.json();
-        setSections(sectionData.sections); // Update the state with fetched sections
-      } else {
-        console.error('Error fetching sections:', sectionResponse.statusText);
-      }
+      const sectionData = await sectionResponse.json();
+      setSection(sectionData);
     } catch (error) {
-      console.error('Error fetching sections:', error.message);
+      console.error('Error fetching current user:', error.message);
     }
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      if (subjectId) {
-        await fetchSections();
+    // Fetch notifications when the component mounts and when userId changes
+    fetchSection();
+  }, []);
+
+  const fetchSubjects = async () => {
+    try {
+      setLoading(true);
+
+      const subjectsResponse = await fetch(`${host}/subjects`, {
+        credentials: 'include',
+      });
+
+      if (subjectsResponse.ok) {
+        const subjectsData = await subjectsResponse.json();
+        setSubjects(subjectsData);
+      } else {
+        // showToast(`Error fetching subjects: ${subjectsResponse.statusText}`, false);
       }
-    };
+    } catch (error) {
+      // showToast(`Error fetching subjects: ${error}`, false);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    fetchData();
-  }, [subjectId]);
+  useEffect(() => {
+    fetchSubjects();
+  }, []);
 
-  const openSubjectInfo = (selectedSubjectId) => {
-    setSubjectId(selectedSubjectId);
+  const openSubjectInfo = () => {
     setIsStudentInfoOpen(true);
   };
 
   const closeStudentInfo = () => {
     setIsStudentInfoOpen(false);
   };
+  console.log('Subject Info:', subjectInfo);
 
   return (
     <div>
@@ -74,37 +93,49 @@ const SectionsView = () => {
                 </h2>
               </div>
               <div className="">
-                <div className="m-5">
-                  <label className="text-md font-semibold">INSTRUCTOR</label>
-                  <input
-                    type="text"
-                    className="m-1 w-1/3 rounded-lg bg-slate-200 p-1 font-semibold"
-                    placeholder="Instructor"
-                  />
-                  <label className="text-md ml-6 font-semibold">SUBJECT CODE</label>
-                  <input
-                    type="text"
-                    className="m-1 w-1/3 rounded-lg bg-slate-200 p-1 font-semibold"
-                    placeholder="ITEC 116"
-                  />
-                  <label className="text-md font-semibold">SUBJECT DESCRIPTION</label>
-                  <input
-                    type="text"
-                    className="m-1 w-3/5 rounded-lg bg-slate-200 p-1 font-semibold"
-                    placeholder="IT ELECTIVE 4 (SYSTEM INTEGRATION AND ARCHITECTURE 2)"
-                  />
+                <div>
+                  {subjects.map((subject) => (
+                    <div key={subject.id}>
+                      <label className="text-md font-semibold">INSTRUCTOR</label>
+                      <span className="m-1 w-1/3 rounded-lg bg-slate-200 p-1 font-semibold">
+                        {subject.instructor}
+                      </span>
+
+                      <label className="text-md ml-10 font-semibold">SUBJECT CODE</label>
+                      <span className="m-1 w-1/3 rounded-lg bg-slate-200 p-1 font-semibold">
+                        {subject.subjectCode}
+                      </span>
+
+                      <label className="text-md font-semibold">SUBJECT DESCRIPTION</label>
+                      <span className="m-1 w-3/5 rounded-lg bg-slate-200 p-1 font-semibold">
+                        {subject.subjectDescription}
+                      </span>
+                    </div>
+                  ))}
                 </div>
+
                 <div className="m-5 flex justify-end">
-                  <button
-                    className="m-4 w-1/6 rounded-lg bg-green px-6 py-1 text-yellow"
-                    onClick={() => openSubjectInfo()}
-                  >
-                    BSIT-4A
-                  </button>
+                  {section.map((section) => (
+                    <button
+                      type="button"
+                      key={section.id}
+                      onClick={() =>
+                        router.push({
+                          pathname: `/subject`,
+                        })
+                      }
+                      className="m-4 w-1/6 rounded-lg bg-green px-6 py-1 text-yellow"
+                    >
+                      <h2 className=" mr-1 text-2xl text-yellow">{section.course}</h2>
+                      <p className="text-yellow">
+                        {section.year} - {section.name}
+                      </p>
+                    </button>
+                  ))}
 
                   <button
                     className="w-4/3 m-4 rounded-lg bg-green px-6 py-1 text-yellow"
-                    onClick={() => openSubjectInfo()}
+                    onClick={openSubjectInfo}
                   >
                     EDIT INFORMATION
                   </button>
@@ -133,16 +164,6 @@ const SectionsView = () => {
                           ))} */}
                   </tbody>
                 </table>
-              </div>
-              <div className="mr-8 flex justify-end">
-                {
-                  <button
-                    className="m-4 w-1/6 bg-green px-6 py-1  text-yellow"
-                    onClick={closeStudentInfo}
-                  >
-                    CANCEL
-                  </button>
-                }
               </div>
             </div>
           </div>

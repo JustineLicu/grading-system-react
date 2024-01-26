@@ -22,9 +22,6 @@ export default function SubjectPage() {
   const [editedSubjectCode, setEditedSubjectCode] = useState('');
   const [editedSubjectDescription, setEditedSubjectDescription] = useState('');
   const [subjectToEdit, setSubjectToEdit] = useState(null);
-  const [sectionCourse, setSectionCourse] = useState('');
-  const [sectionYear, setSectionYear] = useState('');
-  const [sectionName, setSectionName] = useState('');
 
   // const [gradeColumns, ] = useState([]);
   const router = useRouter();
@@ -209,7 +206,7 @@ export default function SubjectPage() {
               <div
                 key={subject.id}
                 className="border-black-500 m-5 w-2/4 cursor-pointer rounded-lg border-2"
-                onClick={() => router.push(`${host}/subjects/${subject.id}/sections`)}
+                onClick={() => router.push(`/subject/${subject.id}/sections`)}
               >
                 <div className="m-4">
                   <h1 className="text-2xl font-semibold">{subject.code}</h1>
@@ -374,10 +371,10 @@ export default function SubjectPage() {
                           <option value="" disabled>
                             Course
                           </option>
-                          <option value="bsit">BSIT</option>
-                          <option value="bscs">BSCS</option>
-                          <option value="bsoa">BSOA</option>
-                          <option value="bsis">BSIS</option>
+                          <option value="BSIT">BSIT</option>
+                          <option value="BSCS">BSCS</option>
+                          <option value="BSOA">BSOA</option>
+                          <option value="BSIS">BSIS</option>
                         </select>
                       </div>
                       <div>
@@ -410,10 +407,10 @@ export default function SubjectPage() {
                           <option value="" disabled>
                             Section
                           </option>
-                          <option value="a">A</option>
-                          <option value="b">B</option>
-                          <option value="c">C</option>
-                          <option value="d">D</option>
+                          <option value="A">A</option>
+                          <option value="B">B</option>
+                          <option value="C">C</option>
+                          <option value="D">D</option>
                         </select>
                       </div>
                       <div>
