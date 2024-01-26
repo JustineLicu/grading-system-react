@@ -12,18 +12,14 @@ export default function Students() {
   const [filteredStudents, setFilteredStudents] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedSection, setSelectedSection] = useState('');
-
-  const handleViewSummary = (student) => {
-    router.push({
-      pathname: '/generation/report',
-      query: { studentId: student.id /* other parameters if needed */ },
-    });
-  };
+  const [sections, setSections] = useState([]);
+  const [subjects, setSubjects] = useState([]);
 
   useEffect(() => {
-    const fetchStudents = async () => {
+    const fetchData = async () => {
       try {
-        const response = await fetch(`${host}/students`, {
+        // Fetch students
+        const studentsResponse = await fetch(`${host}/students`, {
           method: 'GET',
           credentials: 'include',
           headers: {
@@ -31,15 +27,47 @@ export default function Students() {
           },
         });
 
-        if (!response.ok) {
-          throw new Error(`Failed to fetch students. Status: ${response.status}`);
+        if (!studentsResponse.ok) {
+          throw new Error(`Failed to fetch students. Status: ${studentsResponse.status}`);
         }
 
-        const data = await response.json();
+        const studentsData = await studentsResponse.json();
 
-        // Fetch subject and section information for each student
+        // Fetch sections
+        const sectionsResponse = await fetch(`${host}/subjects/1/sections`, {
+          method: 'GET',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!sectionsResponse.ok) {
+          throw new Error(`Failed to fetch sections. Status: ${sectionsResponse.status}`);
+        }
+
+        const sectionsData = await sectionsResponse.json();
+        setSections(sectionsData);
+
+        // Fetch subjects
+        const subjectsResponse = await fetch(`${host}/subjects`, {
+          method: 'GET',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!subjectsResponse.ok) {
+          throw new Error(`Failed to fetch subjects. Status: ${subjectsResponse.status}`);
+        }
+
+        const subjectsData = await subjectsResponse.json();
+        setSubjects(subjectsData);
+
+        // Fetch grades, sections, and subjects for each student
         const studentsWithDetails = await Promise.all(
-          data.map(async (student) => {
+          studentsData.map(async (student) => {
             const gradesResponse = await fetch(`${host}/grades?studentId=${student.id}`, {
               method: 'GET',
               credentials: 'include',
@@ -69,11 +97,11 @@ export default function Students() {
         setStudents(studentsWithDetails);
         setFilteredStudents(studentsWithDetails);
       } catch (error) {
-        console.error('Error fetching students:', error);
+        console.error('Error fetching data:', error);
       }
     };
 
-    fetchStudents();
+    fetchData();
   }, []);
 
   const handleSearch = () => {
@@ -89,7 +117,12 @@ export default function Students() {
       filtered.filter((student) => selectedSection === '' || student.section === selectedSection)
     );
   };
-
+  const handleViewSummary = (student) => {
+    router.push({
+      pathname: '/generation/report',
+      query: { studentId: student.id /* other parameters if needed */ },
+    });
+  };
   const handleSectionFilter = (section) => {
     setSelectedSection(section);
     setFilteredStudents(

@@ -63,14 +63,6 @@ export default function SubjectPage() {
         body: JSON.stringify({
           code: subjectCode,
           description: subjectDescription,
-          sections: [
-            {
-              course: subjectCourse,
-              year: subjectYear,
-              name: subjectName,
-              // gradeColumns: [],
-            },
-          ],
         }),
       });
 
@@ -222,7 +214,7 @@ export default function SubjectPage() {
                     Delete
                   </button>
                   <button
-                    className="ml-2 mt-2 rounded-lg bg-blue-500 px-4 font-semibold text-white"
+                    className="ml-2 mt-2 rounded-lg bg-yellow px-4 font-semibold text-white"
                     onClick={(e) => {
                       e.stopPropagation(); // Prevent the click from triggering the openSubjectInfo
                       openEditSubject(subject);
@@ -331,8 +323,8 @@ export default function SubjectPage() {
                       ADDING OF SUBJECT
                     </h2>
                   </div>
-                  <div className="grid grid-cols-2 ">
-                    <div className="m-5">
+                  <div className="flex justify-center">
+                    <div className="m-5 ">
                       <h1 className="text-xl font-semibold">ADD SUBJECT</h1>
                       <input
                         type="text"
@@ -349,79 +341,7 @@ export default function SubjectPage() {
                         onChange={(e) => setSubjectDescription(e.target.value)}
                       />
                     </div>
-                    <div className="m-5">
-                      <h1 className="text-xl font-semibold">DOWNLOAD TEMPLATE</h1>
-                      <span>This template contains required fields to list student details.</span>
-                      <button className="mt-2 rounded-lg bg-green px-4 font-semibold text-yellow">
-                        DOWNLOAD
-                      </button>
-                    </div>
                   </div>
-                  <div className="m-5">
-                    <div className="grid grid-cols-4 gap-4">
-                      <div>
-                        <h1 className="text-xl font-semibold">COURSE</h1>
-                        <select
-                          name="course"
-                          id="course"
-                          className="w-2/3 rounded-md border px-3 py-2 text-xl font-medium"
-                          value={subjectCourse}
-                          onChange={(e) => setSubjectCourse(e.target.value)}
-                        >
-                          <option value="" disabled>
-                            Course
-                          </option>
-                          <option value="BSIT">BSIT</option>
-                          <option value="BSCS">BSCS</option>
-                          <option value="BSOA">BSOA</option>
-                          <option value="BSIS">BSIS</option>
-                        </select>
-                      </div>
-                      <div>
-                        <h1 className="text-xl font-semibold">YEAR LEVEL</h1>
-                        <select
-                          name="yearlevel"
-                          id="yearlevel"
-                          className="w-2/3 rounded-md border px-3 py-2 text-xl font-medium"
-                          value={subjectYear}
-                          onChange={(e) => setSubjectYear(e.target.value)}
-                        >
-                          <option value="" disabled>
-                            Year
-                          </option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                        </select>
-                      </div>
-                      <div>
-                        <h1 className="text-xl font-semibold">SECTION</h1>
-                        <select
-                          name="section"
-                          id="section"
-                          className="w-2/3 rounded-md border px-3 py-2 text-xl font-medium"
-                          value={subjectName}
-                          onChange={(e) => setSubjectName(e.target.value)}
-                        >
-                          <option value="" disabled>
-                            Section
-                          </option>
-                          <option value="A">A</option>
-                          <option value="B">B</option>
-                          <option value="C">C</option>
-                          <option value="D">D</option>
-                        </select>
-                      </div>
-                      <div>
-                        <h1 className="text-xl font-semibold">SELECT FILE</h1>
-                        <input type="file" id="imageUpload" />
-                      </div>
-                    </div>
-                  </div>
-                  <button className="m-4 w-1/6 rounded-lg bg-green px-6 py-1 text-yellow">
-                    ADD SECTION
-                  </button>
                   <div className="mr-8 flex justify-end">
                     <button
                       className="m-4 w-1/6 bg-green px-6 py-1  text-yellow"
