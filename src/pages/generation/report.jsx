@@ -1,10 +1,46 @@
 import NavBar from '@/components/nav-bar';
 import SideBarMenu from '@/components/side-bar';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 const host = 'http://localhost:8080';
 
-export default function student_summary_grades() {
+export default function report() {
+  const router = useRouter();
+  const [studentData, setStudentData] = useState(null);
+
+  useEffect(() => {
+    // Get studentId from the query parameters
+    const { studentId } = router.query;
+
+    if (studentId) {
+      // Fetch student details based on the studentId
+      const fetchStudentDetails = async () => {
+        try {
+          const response = await fetch(`${host}/students/${studentId}`, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+
+          if (!response.ok) {
+            throw new Error(`Failed to fetch student details. Status: ${response.status}`);
+          }
+
+          const data = await response.json();
+          setStudentData(data);
+        } catch (error) {
+          console.error('Error fetching student details:', error);
+        }
+      };
+
+      fetchStudentDetails();
+    }
+  }, [router.query]); // Re-run the effect when the query parameters change
+
   return (
     <>
       {/* HEADER */}
@@ -20,58 +56,58 @@ export default function student_summary_grades() {
         <div className="">
           <div className="content p-5 text-xl">
             <div className="account-details mt-4">
-              <div className="label">Student Summary of Grades</div>
+              <div className="label">Student Information</div>
               <form className="mt-5 flex flex-col gap-5">
                 <div className="flex gap-5">
                   <div className="flex-grow">
-                    <label class="block">
-                      <span class="after:text-red-500 block text-sm font-medium text-slate-700 after:ml-0.5 after:content-['*']">
-                        Surname
-                      </span>
+                    <label className="block">
+                      <span className="block text-sm font-medium text-slate-700">Surname</span>
                       <input
                         type="text"
-                        name=""
-                        class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+                        name="surname"
+                        className="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
                         placeholder="Enter surname"
+                        value={studentData?.lastName}
+                        readOnly
                       />
                     </label>
                   </div>
                   <div className="flex-grow">
-                    <label class="block">
-                      <span class="after:text-red-500 block text-sm font-medium text-slate-700 after:ml-0.5 after:content-['*']">
-                        First Name
-                      </span>
+                    <label className="block">
+                      <span className="block text-sm font-medium text-slate-700">First Name</span>
                       <input
                         type="text"
-                        name=""
-                        class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+                        name="firstName"
+                        className="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
                         placeholder="Enter firstname"
+                        value={studentData?.firstName}
+                        readOnly
                       />
                     </label>
                   </div>
                   <div className="flex-grow">
-                    <label class="block">
-                      <span class="after:text-red-500 block text-sm font-medium text-slate-700 after:ml-0.5 after:content-['*']">
-                        Middle Name
-                      </span>
+                    <label className="block">
+                      <span className="block text-sm font-medium text-slate-700">Middle Name</span>
                       <input
                         type="text"
-                        name=""
-                        class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+                        name="middleName"
+                        className="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
                         placeholder="Enter middlename"
+                        value={studentData?.middleName ? studentData?.middleName : ''}
+                        readOnly
                       />
                     </label>
                   </div>
                   <div className="flex-grow">
-                    <label class="block">
-                      <span class="after:text-red-500 block text-sm font-medium text-slate-700 after:ml-0.5 after:content-['*']">
-                        Suffix
-                      </span>
+                    <label className="block">
+                      <span className="block text-sm font-medium text-slate-700">Suffix</span>
                       <input
                         type="text"
-                        name=""
-                        class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+                        name="suffix"
+                        className="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
                         placeholder="Enter suffix"
+                        value={studentData?.nameSuffix ? studentData?.nameSuffix : ''}
+                        readOnly
                       />
                     </label>
                   </div>
@@ -79,156 +115,92 @@ export default function student_summary_grades() {
 
                 <div className="flex gap-5">
                   <div className="flex-grow">
-                    <label class="block">
-                      <span class="after:text-red-500 block text-sm font-medium text-slate-700 after:ml-0.5 after:content-['*']">
+                    <label className="block">
+                      <span className="block text-sm font-medium text-slate-700">
                         Student Number
                       </span>
                       <input
                         type="text"
-                        name=""
-                        class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+                        name="studentNumber"
+                        className="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
                         placeholder="Enter student number"
+                        value={studentData?.studentNumber}
+                        readOnly
                       />
                     </label>
                   </div>
                   <div className="flex-grow">
-                    <label class="block">
-                      <span class="after:text-red-500 block text-sm font-medium text-slate-700 after:ml-0.5 after:content-['*']">
+                    <label className="block">
+                      <span className="block text-sm font-medium text-slate-700">
                         Email Address
                       </span>
                       <input
                         type="text"
-                        name=""
-                        class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+                        name="email"
+                        className="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
                         placeholder="you@example.com"
+                        value={studentData?.email}
+                        readOnly
                       />
                     </label>
                   </div>
                   <div className="flex-grow">
-                    <label class="block">
-                      <span class="after:text-red-500 block text-sm font-medium text-slate-700 after:ml-0.5 after:content-['*']">
+                    <label className="block">
+                      <span className="block text-sm font-medium text-slate-700">
                         Contact Number
                       </span>
                       <input
                         type="number"
-                        name=""
-                        class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+                        name="contactNumber"
+                        className="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
                         placeholder="Enter contact number"
+                        value={studentData?.contactNumber}
+                        readOnly
                       />
                     </label>
                   </div>
                 </div>
 
-                <div className="label mt-4">Breakdown of Grades</div>
+                {/* Display student summary information in the table */}
+                <div className="label mt-4">Summary</div>
                 <div className="table-grades">
-                  <table class="table-auto">
+                  <table className="table-auto">
                     <thead>
                       <tr>
-                        <th>Ass 1</th>
-                        <th>Quiz 1</th>
-                        <th>Midterms</th>
-                        <th>Finals</th>
+                        <th>Subject Name</th>
                         <th>Grade</th>
-                        <th>Unit</th>
                         <th>Status</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>5</td>
-                        <td>5</td>
-                        <td>20</td>
-                        <td>20</td>
-                        <td>5.00</td>
-                        <td>1</td>
-                        <td>Failed</td>
-                      </tr>
-                      <tr>
-                        <td>5</td>
-                        <td>5</td>
-                        <td>20</td>
-                        <td>20</td>
-                        <td>5.00</td>
-                        <td>1</td>
-                        <td>Failed</td>
-                      </tr>
-                      <tr>
-                        <td>5</td>
-                        <td>5</td>
-                        <td>20</td>
-                        <td>20</td>
-                        <td>5.00</td>
-                        <td>1</td>
-                        <td>Failed</td>
-                      </tr>
+                      {/* Add a loop to dynamically render subject and grade information
+                      {studentData.grades.map((grade, index) => (
+                        <tr key={index}>
+                          <td>{grade.subjectName}</td>
+                          <td>{grade.grade}</td>
+                          <td>{grade.status}</td>
+                        </tr>
+                      ))} */}
                     </tbody>
                   </table>
                 </div>
 
                 <div className="table-attendance">
-                  <table class="table-auto">
+                  <table className="table-auto">
                     <thead>
                       <tr>
                         <th>Attendance</th>
-                        <th>Aug</th>
-                        <th>Sept</th>
-                        <th>Oct</th>
-                        <th>Nov</th>
-                        <th>Dec</th>
-                        <th>Jan</th>
-                        <th>Feb</th>
-                        <th>Mar</th>
-                        <th>Apr</th>
-                        <th>May</th>
-                        <th>Jun</th>
-                        <th>Jul</th>
+                        <th>Total Day of School</th>
+                        <th>Total Day of Present</th>
+                        <th>Total Day of Absents</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        <td>Day of School</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                      </tr>
-                      <tr>
-                        <td>Day of Present</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                      </tr>
-                      <tr>
-                        <td>Times Tardy</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
+                        <td>Days:</td>
+                        {/* <td>{studentData.attendance.totalDays}</td>
+                        <td>{studentData.attendance.presentDays}</td>
+                        <td>{studentData.attendance.absentDays}</td> */}
                       </tr>
                     </tbody>
                   </table>
@@ -242,10 +214,9 @@ export default function student_summary_grades() {
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="lucide lucide-file-minus"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     >
                       <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
                       <polyline points="14 2 14 8 20 8" />

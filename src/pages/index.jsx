@@ -152,13 +152,6 @@ const LoginPage = () => {
                 />
               </div>
             </div>
-            <Link
-              href="#"
-              onClick={toggleForgotPasswordModal}
-              className="flex justify-center underline"
-            >
-              Forgot Password?
-            </Link>
             <button
               onClick={async () => await handleLogin()}
               className="focus:shadow-outline mt-3 w-full rounded bg-[#2A9134] px-4 py-3 font-medium text-white hover:bg-[#023020] focus:outline-none"

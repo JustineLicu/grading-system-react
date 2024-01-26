@@ -11,6 +11,7 @@ export default function GradesCellColumns({
   const [scoreType, setScoreType] = useState(score.type);
   const [scoreItems, setScoreItems] = useState(score.items);
   const [scorePercentage, setScorePercentage] = useState(score.percentage);
+  console.log('console from cells', score);
 
   const handleTypeChange = (e) => {
     setScoreType(e.target.value);
@@ -77,11 +78,13 @@ export default function GradesCellColumns({
               setScores(updatedScores);
             }}
             className={`${
-              scoreType === 'Final' || scoreType === 'Midterm'
+              scoreType === 'Final' || scoreType === 'Midterm' || scoreType === 'Attendance'
                 ? 'cursor-not-allowed opacity-50'
                 : ''
             } rounded-sm active:scale-95`}
-            disabled={scoreType === 'Final' || scoreType === 'Midterm'}
+            disabled={
+              scoreType === 'Final' || scoreType === 'Midterm' || scoreType === 'Attendance'
+            }
           >
             <Image src="/delete.svg" alt="delete" width={20} height={20} />
           </button>

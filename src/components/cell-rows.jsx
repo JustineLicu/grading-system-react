@@ -61,6 +61,18 @@ export default function CellRows({
           value={unit}
           onChange={(e) => setUnit(e.target.value)}
         />
+        <input
+          type="text"
+          name=""
+          id="attendance-total-days"
+          className={`w-28 min-w-[10%] border  text-center focus:z-10 focus:font-bold`}
+        />
+        <input
+          type="text"
+          name=""
+          id="attendance-total-present-day"
+          className={`w-28 min-w-[10%] border  text-center focus:z-10 focus:font-bold`}
+        />
         <select
           id=""
           className={`w-28 min-w-[10%] border  text-center`}
