@@ -90,12 +90,9 @@ export default function SideBarMenu() {
     },
     {
       id: 3,
-      name: 'Announcement',
-      imageLink: '/announcement_icon.svg',
-      urlLink: `/`,
       name: 'Grade Configuration',
       imageLink: '/configuration_icon.svg',
-      urlLink: `/grades/config`,
+      urlLink: `/reportConfig`,
     },
     {
       id: 4,
@@ -103,9 +100,14 @@ export default function SideBarMenu() {
       imageLink: '/notification.svg',
       urlLink: `/notification`,
     },
-
     {
       id: 5,
+      name: 'Admin Profile',
+      imageLink: '/create.png',
+      urlLink: `/generation/students`,
+    },
+    {
+      id: 6,
       name: 'Admin Profile',
       imageLink: '/logout.png',
       onClick: () => setShowLogoutModal(true),
