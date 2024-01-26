@@ -1,6 +1,7 @@
 import NavBar from '@/components/nav-bar';
 import SideBarMenu from '@/components/side-bar';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 const host = 'http://localhost:8080';
@@ -17,6 +18,13 @@ export default function SubjectPage() {
   const [subjectName, setSubjectName] = useState('');
   const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] = useState(false);
   const [subjectToDelete, setSubjectToDelete] = useState(null);
+  const [isEditSubjectOpen, setIsEditSubjectOpen] = useState(false);
+  const [editedSubjectCode, setEditedSubjectCode] = useState('');
+  const [editedSubjectDescription, setEditedSubjectDescription] = useState('');
+  const [subjectToEdit, setSubjectToEdit] = useState(null);
+  // const [gradeColumns, ] = useState([]);
+  const router = useRouter();
+  const { sectionId, subjectId } = router.query;
 
   const fetchSubjects = async () => {
     try {
@@ -43,30 +51,31 @@ export default function SubjectPage() {
     fetchSubjects();
   }, []);
 
-  const fetchSections = async () => {
+  const fetchSection = async () => {
     try {
-      setLoading(true);
-
-      const subjectsResponse = await fetch(`${host}/subjects`, {
+      const sectionResponse = await fetch(`${host}/subjects/${subjectId}/sections`, {
+        method: 'GET',
         credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
-
-      if (subjectsResponse.ok) {
-        const sectionsData = await subjectsResponse.json();
-        setSubjects(sectionsData);
-      } else {
-        showToast(`Error fetching subjects: ${subjectsResponse.statusText}`, false);
-      }
+      const sectionData = await sectionResponse.json();
+      sectionData;
     } catch (error) {
-      showToast(`Error fetching subjects: ${error}`, false);
-    } finally {
-      setLoading(false);
+      console.error('Error fetching current section:', error.message);
     }
   };
 
   useEffect(() => {
-    fetchSubjects();
-  }, []);
+    const fetchData = async () => {
+      if (subjectId) {
+        await fetchSection();
+      }
+    };
+
+    fetchData();
+  }, [subjectId]);
 
   const addSubject = async () => {
     try {
@@ -127,6 +136,49 @@ export default function SubjectPage() {
     }
   };
 
+  // Function to open the edit subject modal
+  const openEditSubject = (subject) => {
+    setSubjectToEdit(subject);
+    setEditedSubjectCode(subject.code);
+    setEditedSubjectDescription(subject.description);
+    setIsEditSubjectOpen(true);
+  };
+
+  // Function to close the edit subject modal
+  const closeEditSubject = () => {
+    setIsEditSubjectOpen(false);
+    setSubjectToEdit(null);
+  };
+
+  // Function to handle the PUT request for editing a subject
+  const editSubject = async () => {
+    try {
+      const response = await fetch(`${host}/subjects/${subjectToEdit.id}`, {
+        method: 'PUT',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          code: editedSubjectCode,
+          description: editedSubjectDescription,
+        }),
+      });
+
+      if (response.ok) {
+        closeEditSubject();
+        fetchSubjects(); // Refresh the subjects after editing
+      } else {
+        const errorData = await response.json();
+        const errorMessage =
+          errorData && errorData.message ? errorData.message : response.statusText;
+        alert(`Error editing subject: ${errorMessage}`);
+      }
+    } catch (error) {
+      alert(`Error editing subject: ${error.message}`);
+    }
+  };
+
   const openAddSubject = (e) => {
     e.stopPropagation();
     setIsAddSubjectOpen(true);
@@ -136,8 +188,15 @@ export default function SubjectPage() {
     setIsAddSubjectOpen(false);
   };
 
-  const openSubjectInfo = () => {
-    setIsStudentInfoOpen(true);
+  const openSubjectInfo = async (subjectId) => {
+    try {
+      // Fetch the sections for the selected subject
+      await fetchSection(subjectId);
+      // Open the subject info modal or perform other actions as needed
+      setIsStudentInfoOpen(true);
+    } catch (error) {
+      console.error('Error opening subject info:', error.message);
+    }
   };
 
   const closeStudentInfo = () => {
@@ -156,8 +215,8 @@ export default function SubjectPage() {
       <NavBar />
       <div className="flex">
         <SideBarMenu />
-        <div className="bg-gray-100 h-10/12 m-8 mb-4 flex w-full flex-col items-center justify-end">
-          <div className="border-black-500 relative w-3/4 border-2 bg-white shadow-md">
+        <div className="bg-gray-100  m-8 mb-4 flex w-full flex-col items-center ">
+          <div className="border-black-500 relative min-h-[80vh] w-3/4 border-2 bg-white shadow-md">
             <div className="border-b-2 bg-green p-2">
               <h2 className="flex justify-center text-xl font-semibold text-yellow">
                 ALL SUBJECTS
@@ -181,6 +240,15 @@ export default function SubjectPage() {
                     }}
                   >
                     Delete
+                  </button>
+                  <button
+                    className="ml-2 mt-2 rounded-lg bg-blue-500 px-4 font-semibold text-white"
+                    onClick={(e) => {
+                      e.stopPropagation(); // Prevent the click from triggering the openSubjectInfo
+                      openEditSubject(subject);
+                    }}
+                  >
+                    Edit
                   </button>
                 </div>
               </div>
@@ -211,6 +279,52 @@ export default function SubjectPage() {
                       >
                         No
                       </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+            {isEditSubjectOpen && (
+              <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                <div className="w-3/4">
+                  <div className="rounded-lg bg-white p-4">
+                    <div className="border-black-500 relative h-full flex-1 flex-grow overflow-hidden border-2 bg-white shadow-md">
+                      <div className="border-b-2 bg-green p-2">
+                        <h2 className="flex justify-center text-xl font-semibold text-yellow">
+                          EDIT SUBJECT
+                        </h2>
+                      </div>
+                      <div className="m-5">
+                        <h1 className="text-xl font-semibold">EDIT SUBJECT</h1>
+                        <input
+                          type="text"
+                          className="m-1 w-3/4 rounded-lg bg-slate-200 p-1 font-semibold"
+                          placeholder="Enter subject code"
+                          value={editedSubjectCode}
+                          onChange={(e) => setEditedSubjectCode(e.target.value)}
+                        />
+                        <input
+                          type="text"
+                          className="m-1 w-3/4 rounded-lg bg-slate-200 p-1 font-semibold"
+                          placeholder="Enter subject description / name"
+                          value={editedSubjectDescription}
+                          onChange={(e) => setEditedSubjectDescription(e.target.value)}
+                        />
+                      </div>
+                      <div className="mr-8 flex justify-end">
+                        <button
+                          className="m-4 w-1/6 bg-green px-6 py-1 text-yellow"
+                          onClick={editSubject}
+                        >
+                          SAVE
+                        </button>
+                        <button
+                          className="m-4 w-1/6 bg-green px-6 py-1 text-yellow"
+                          onClick={closeEditSubject}
+                        >
+                          CANCEL
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -274,6 +388,9 @@ export default function SubjectPage() {
                           value={subjectCourse}
                           onChange={(e) => setSubjectCourse(e.target.value)}
                         >
+                          <option value="" disabled selected>
+                            Course
+                          </option>
                           <option value="bsit">BSIT</option>
                           <option value="bscs">BSCS</option>
                           <option value="bsoa">BSOA</option>
@@ -289,6 +406,9 @@ export default function SubjectPage() {
                           value={subjectYear}
                           onChange={(e) => setSubjectYear(e.target.value)}
                         >
+                          <option value="" disabled selected>
+                            Year
+                          </option>
                           <option value="1">1</option>
                           <option value="2">2</option>
                           <option value="3">3</option>
@@ -304,6 +424,9 @@ export default function SubjectPage() {
                           value={subjectName}
                           onChange={(e) => setSubjectName(e.target.value)}
                         >
+                          <option value="" disabled selected>
+                            Section
+                          </option>
                           <option value="a">A</option>
                           <option value="b">B</option>
                           <option value="c">C</option>
