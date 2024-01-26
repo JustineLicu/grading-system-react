@@ -21,7 +21,7 @@ export default function CellRows({
   const [status, setStatus] = useState(info.status);
 
   const [gradeScoresColumn, setGradeScoresColumn] = useState('');
-
+  console.log(gradesRow);
   return (
     <>
       <div className="mb-1 flex w-full">
@@ -60,18 +60,6 @@ export default function CellRows({
           className={`w-28 min-w-[10%] border  text-center focus:z-10 focus:font-bold`}
           value={unit}
           onChange={(e) => setUnit(e.target.value)}
-        />
-        <input
-          type="text"
-          name=""
-          id="attendance-total-days"
-          className={`w-28 min-w-[10%] border  text-center focus:z-10 focus:font-bold`}
-        />
-        <input
-          type="text"
-          name=""
-          id="attendance-total-present-day"
-          className={`w-28 min-w-[10%] border  text-center focus:z-10 focus:font-bold`}
         />
         <select
           id=""

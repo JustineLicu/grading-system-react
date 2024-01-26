@@ -9,9 +9,8 @@ export default function GradesCellColumns({
   ...score
 }) {
   const [scoreType, setScoreType] = useState(score.type);
-  const [scoreItems, setScoreItems] = useState(score.items);
+  const [scoreItems, setScoreItems] = useState(score.items > 0 ? score.items : 1);
   const [scorePercentage, setScorePercentage] = useState(score.percentage);
-  console.log('console from cells', score);
 
   const handleTypeChange = (e) => {
     setScoreType(e.target.value);
@@ -19,13 +18,17 @@ export default function GradesCellColumns({
   };
 
   const handleItemsChange = (e) => {
-    setScoreItems(e.target.value);
-    updateScore('items', parseInt(e.target.value, 10));
+    if (e.target.value > 0) {
+      setScoreItems(e.target.value);
+      updateScore('items', parseInt(e.target.value, 10));
+    }
   };
 
   const handlePercentageChange = (e) => {
-    setScorePercentage(e.target.value);
-    updateScore('percentage', e.target.value);
+    if (e.target.value > 0) {
+      setScorePercentage(e.target.value);
+      updateScore('percentage', parseInt(e.target.value, 10));
+    }
   };
 
   const updateScore = (key, value) => {

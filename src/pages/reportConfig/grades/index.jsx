@@ -54,6 +54,7 @@ export default function ClassesPage() {
       console.error('Error fetching current grades:', error.message);
     }
   };
+
   useEffect(() => {
     if (subjectId) {
       fetchGrades();
@@ -71,14 +72,13 @@ export default function ClassesPage() {
       return JSON.parse(col.gradeColumns);
     });
 
-  console.log(grades);
-  const initialGradesRow = grades.flat().reduce((acc, col) => {
+  const initialGradesRow = grades.flat()((acc, col) => {
     acc[col.type.toLowerCase()] = '';
     return acc;
   }, {});
 
   const [gradesRow, setGradesRow] = useState({});
-
+  console.log(gradesRow);
   // Adding a student
   const addStudent = async () => {
     try {
@@ -110,6 +110,7 @@ export default function ClassesPage() {
 
       if (response.ok) {
         alert('Grades added successfully');
+        router.reload();
       } else {
         alert(`Error adding grades: ${response.statusText}`);
       }
@@ -190,7 +191,6 @@ export default function ClassesPage() {
                 ))}
                 <div className="w-28 min-w-[10%] border p-2 text-center">Grade</div>
                 <div className="w-28 min-w-[10%] border p-2 text-center">Unit</div>
-                <div className="w-28 min-w-[10%] border p-2 text-center">Attendance</div>
                 <div className="w-28 min-w-[10%] border p-2 text-center">Status</div>
                 <div className="w-28 min-w-[10%] border p-2 text-center">Action</div>
               </div>

@@ -16,12 +16,12 @@ export default function GradeConfigPage() {
   };
 
   const [scores, setScores] = useState([
-    { colId: generateUniqueId(), type: 'Quiz 1', items: 10, percentage: '20%' },
-    { colId: generateUniqueId(), type: 'Assignment 1', items: 10, percentage: '10%' },
-    { colId: generateUniqueId(), type: 'Activity 1', items: 10, percentage: '10%' },
-    { colId: generateUniqueId(), type: 'Midterm', items: 100, percentage: '30%' },
-    { colId: generateUniqueId(), type: 'Final', items: 100, percentage: '30%' },
-    { colId: generateUniqueId(), type: 'Attendance', items: 365, percentage: '10%' },
+    { colId: generateUniqueId(), type: 'Quiz 1', items: 10, percentage: '20 ' },
+    { colId: generateUniqueId(), type: 'Assignment 1', items: 10, percentage: '10 ' },
+    { colId: generateUniqueId(), type: 'Activity 1', items: 10, percentage: '10 ' },
+    { colId: generateUniqueId(), type: 'Midterm', items: 100, percentage: '25 ' },
+    { colId: generateUniqueId(), type: 'Final', items: 100, percentage: '25 ' },
+    { colId: generateUniqueId(), type: 'Attendance', items: 365, percentage: '10  ' },
   ]);
 
   const addSection = async () => {
@@ -176,7 +176,7 @@ export default function GradeConfigPage() {
                         colId: generateUniqueId(),
                         type: `${gradeType} ${typeNumber}`,
                         items: 0,
-                        percentage: '0%',
+                        percentage: 0,
                       }; // Initial values for a new type
                       const typeIndex = scores.findIndex((score) =>
                         score.type.startsWith(`${gradeType}`)

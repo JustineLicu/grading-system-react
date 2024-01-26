@@ -52,31 +52,47 @@ export default function EditGradeConfigPage() {
   }, [section]);
 
   const [scores, setScores] = useState([]);
-  console.log(scores);
+  const totalPercentage = scores.reduce(
+    (accumulator, currentValue) => accumulator + parseInt(currentValue.percentage),
+    0
+  );
+  const totalItems = scores.reduce(
+    (accumulator, currentValue) => accumulator + parseInt(currentValue.items),
+    0
+  );
+  console.log((10 / totalItems) * totalPercentage);
   const updateSection = async () => {
     try {
-      const response = await fetch(`${host}/subjects/${subjectId}/sections/${sectionId}`, {
-        method: 'PUT',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          gradeColumns: JSON.stringify(scores),
-        }),
-      });
+      if (totalPercentage == 100) {
+        const response = await fetch(`${host}/subjects/${subjectId}/sections/${sectionId}`, {
+          method: 'PUT',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            gradeColumns: JSON.stringify(scores),
+          }),
+        });
 
-      if (response.ok) {
-        alert('Section updated successfully');
-        router.push(`/reportConfig/${subjectId}/sections`);
+        if (response.ok) {
+          alert('Section updated successfully');
+          router.push({
+            pathname: `/reportConfig/grades`,
+            query: { sectionId: sectionId, subjectId: subjectId },
+          });
+        } else {
+          alert(`Error updating section: ${response.statusText}`);
+        }
       } else {
-        alert(`Error updating section: ${response.statusText}`);
+        alert(
+          `Total percentage is ${totalPercentage}% and it is insufficient/excessive. Please modify it to exactly 100%.`
+        );
       }
     } catch (error) {
       alert(`Error updating section: ${error}`);
     }
   };
-
   const [gradeType, setGradeType] = useState('');
   const [typeNumber, setTypeNumber] = useState(0);
 
@@ -138,7 +154,7 @@ export default function EditGradeConfigPage() {
                         colId: generateUniqueId(),
                         type: `${gradeType} ${typeNumber}`,
                         items: 0,
-                        percentage: '0%',
+                        percentage: 0,
                       }; // Initial values for a new type
                       const typeIndex = scores.findIndex((score) =>
                         score.type.startsWith(`${gradeType}`)

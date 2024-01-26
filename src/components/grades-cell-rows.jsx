@@ -1,7 +1,9 @@
+// Assuming you have gradesRow state declared in some other file like GradesContext.js
 import { useState } from 'react';
 
 export default function GradesCellRows({ setGradesRow, info, ...col }) {
-  const [gradesCol, setGradesCol] = useState(info[col.type.toLowerCase()]);
+  const lowerCaseType = col.type.toLowerCase();
+  const [gradesCol, setGradesCol] = useState(info[lowerCaseType]);
   return (
     <>
       <input
@@ -15,7 +17,7 @@ export default function GradesCellRows({ setGradesRow, info, ...col }) {
             ...prevValues,
             [name]: value,
           }));
-          setGradesCol(value);
+          setGradesCol(+value);
         }}
         value={gradesCol}
       />
