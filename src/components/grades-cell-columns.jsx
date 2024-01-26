@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 export default function GradesCellColumns({
   setTypeNumber,
@@ -12,32 +12,27 @@ export default function GradesCellColumns({
   const [scoreItems, setScoreItems] = useState(score.items);
   const [scorePercentage, setScorePercentage] = useState(score.percentage);
 
-  useEffect(() => {
-    setScoreType(score.type);
-    setScoreItems(score.items);
-    setScorePercentage(score.percentage);
-  }, [score]); // Update local state when the 'score' prop changes
-
   const handleTypeChange = (e) => {
     setScoreType(e.target.value);
+    updateScore('type', e.target.value);
   };
 
   const handleItemsChange = (e) => {
     setScoreItems(e.target.value);
+    updateScore('items', parseInt(e.target.value, 10));
   };
 
   const handlePercentageChange = (e) => {
     setScorePercentage(e.target.value);
+    updateScore('percentage', e.target.value);
   };
 
-  const updateScore = () => {
+  const updateScore = (key, value) => {
     const updatedScores = scores.map((s) => {
       if (s.colId === score.colId) {
         return {
           ...s,
-          type: scoreType,
-          items: parseInt(scoreItems, 10),
-          percentage: scorePercentage,
+          [key]: value,
         };
       }
       return s;
@@ -76,7 +71,9 @@ export default function GradesCellColumns({
           <button
             type="button"
             onClick={() => {
-              const updatedScores = scores.filter((s) => s.colId !== score.colId);
+              const updatedScores = scores.filter((s) => {
+                return s.colId !== score.colId;
+              });
               setScores(updatedScores);
             }}
             className={`${

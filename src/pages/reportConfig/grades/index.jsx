@@ -14,7 +14,6 @@ export default function ClassesPage() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [gradeColumns, setGradeColumns] = useState([]);
 
-  
   // Fetch gradeColumns
   const fetchSection = async () => {
     try {
@@ -66,9 +65,11 @@ export default function ClassesPage() {
   };
   const newId = generateRandomId();
 
-  const grades = gradeColumns.filter((grades) => grades.id === +sectionId).map((col, idx) => {
-    return JSON.parse(col.gradeColumns);
-  });
+  const grades = gradeColumns
+    .filter((grades) => grades.id === +sectionId)
+    .map((col, idx) => {
+      return JSON.parse(col.gradeColumns);
+    });
 
   console.log(grades);
   const initialGradesRow = grades.flat().reduce((acc, col) => {
