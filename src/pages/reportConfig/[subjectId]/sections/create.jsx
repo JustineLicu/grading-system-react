@@ -11,12 +11,16 @@ export default function GradeConfigPage() {
   const router = useRouter();
   const subjectId = router.query.subjectId;
 
+  const generateUniqueId = () => {
+    return Date.now().toString(36) + Math.random().toString(36).substr(2);
+  };
+
   const [scores, setScores] = useState([
-    { type: 'Quiz 1', items: 10, percentage: '20%' },
-    { type: 'Assignment 1', items: 10, percentage: '10%' },
-    { type: 'Activity 1', items: 10, percentage: '10%' },
-    { type: 'Midterm', items: 100, percentage: '30%' },
-    { type: 'Final', items: 100, percentage: '40%' },
+    { colId: generateUniqueId(), type: 'Quiz 1', items: 10, percentage: '20%' },
+    { colId: generateUniqueId(), type: 'Assignment 1', items: 10, percentage: '10%' },
+    { colId: generateUniqueId(), type: 'Activity 1', items: 10, percentage: '10%' },
+    { colId: generateUniqueId(), type: 'Midterm', items: 100, percentage: '30%' },
+    { colId: generateUniqueId(), type: 'Final', items: 100, percentage: '40%' },
   ]);
 
   const addSection = async () => {
@@ -37,6 +41,7 @@ export default function GradeConfigPage() {
 
       if (response.ok) {
         alert('Section added successfully');
+        router.push(`/reportConfig/${subjectId}/sections`);
       } else {
         alert(`Error adding section: ${response.statusText}`);
       }
@@ -169,6 +174,7 @@ export default function GradeConfigPage() {
                     type="button"
                     onClick={() => {
                       const newScore = {
+                        colId: generateUniqueId(),
                         type: `${gradeType} ${typeNumber}`,
                         items: 0,
                         percentage: '0%',

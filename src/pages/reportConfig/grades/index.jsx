@@ -14,6 +14,7 @@ export default function ClassesPage() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [gradeColumns, setGradeColumns] = useState([]);
 
+  
   // Fetch gradeColumns
   const fetchSection = async () => {
     try {
@@ -41,7 +42,7 @@ export default function ClassesPage() {
   // Fetch Grades
   const fetchGrades = async () => {
     try {
-      const gradesResponse = await fetch(`${host}/grades?sectionId=1`, {
+      const gradesResponse = await fetch(`${host}/grades?sectionId=${sectionId}`, {
         method: 'GET',
         credentials: 'include',
         headers: {
@@ -65,10 +66,11 @@ export default function ClassesPage() {
   };
   const newId = generateRandomId();
 
-  const grades = gradeColumns.map((col, idx) => {
+  const grades = gradeColumns.filter((grades) => grades.id === +sectionId).map((col, idx) => {
     return JSON.parse(col.gradeColumns);
   });
 
+  console.log(grades);
   const initialGradesRow = grades.flat().reduce((acc, col) => {
     acc[col.type.toLowerCase()] = '';
     return acc;
@@ -171,24 +173,24 @@ export default function ClassesPage() {
       <NavBar />
       <main className="flex">
         <SideBarMenu />
-        <div className=" w-full p-4">
-          <div className="relative min-h-[80vh] border border-gray shadow-md">
+        <div className="flex w-full items-center justify-center p-4">
+          <div className="relative min-h-[80vh] max-w-[90vw] border border-gray shadow-md">
             <div className="flex items-center justify-center border border-green bg-green py-3 ">
               <h2 className="text-2xl font-bold text-white">{subjectId}</h2>
             </div>
             <div className="overflow-auto p-8">
               <div className="flex">
-                <div className="min-w-28 w-[10%] border p-2 text-center">Student #</div>
-                <div className="min-w-28 w-[10%] border p-2 text-center">Student Name</div>
+                <div className="w-28 min-w-[10%] border p-2 text-center">Student #</div>
+                <div className="w-28 min-w-[10%] border p-2 text-center">Student Name</div>
                 {grades.flat().map((col, idx) => (
-                  <div key={idx} className="min-w-28 w-[10%] border p-2 text-center">
+                  <div key={idx} className="w-28 min-w-[10%] border p-2 text-center">
                     {col.type}
                   </div>
                 ))}
-                <div className="min-w-28 w-[10%] border p-2 text-center">Grade</div>
-                <div className="min-w-28 w-[10%] border p-2 text-center">Unit</div>
-                <div className="min-w-28 w-[10%] border p-2 text-center">Status</div>
-                <div className="min-w-28 w-[10%] border p-2 text-center">Action</div>
+                <div className="w-28 min-w-[10%] border p-2 text-center">Grade</div>
+                <div className="w-28 min-w-[10%] border p-2 text-center">Unit</div>
+                <div className="w-28 min-w-[10%] border p-2 text-center">Status</div>
+                <div className="w-28 min-w-[10%] border p-2 text-center">Action</div>
               </div>
 
               {studentGrades.map((gradeInfo, idx) => {
@@ -213,6 +215,13 @@ export default function ClassesPage() {
               })}
             </div>
             <div className="absolute bottom-6 right-4 flex gap-2">
+              <button
+                type="button"
+                onClick={() => router.push(`/reportConfig/${subjectId}/sections/${sectionId}/edit`)}
+                className={` border border-gray px-6 py-2 text-lg font-semibold  active:scale-95`}
+              >
+                Edit Grades
+              </button>
               <button
                 type="button"
                 onClick={() => addStudent()}

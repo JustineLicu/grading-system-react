@@ -56,7 +56,7 @@ export default function GradeConfigPage() {
                   key={section.id}
                   onClick={() =>
                     router.push({
-                      pathname: `/configuration/grades`,
+                      pathname: `/reportConfig/grades`,
                       query: { sectionId: section.id, subjectId: subjectId },
                     })
                   }
@@ -71,7 +71,7 @@ export default function GradeConfigPage() {
             </div>
             <button
               type="button"
-              onClick={() => router.push(`/configuration/${subjectId}/sections/create`)}
+              onClick={() => router.push(`/reportConfig/${subjectId}/sections/create`)}
               className="absolute bottom-4 right-4 rounded-full bg-yellow p-2 text-2xl font-bold text-white active:scale-95"
             >
               <Image src="/add.svg" alt="add" width={30} height={30} />
