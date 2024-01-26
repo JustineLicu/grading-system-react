@@ -38,7 +38,7 @@ export default function EditPage() {
   return (
     <>
       <Head>
-        <title>Grade Configuration | Grading System</title>
+        <title>Attendance Configuration | Atendance System</title>
       </Head>
 
       <NavBar />
@@ -136,7 +136,7 @@ export default function EditPage() {
               <button
                 type="button"
                 onClick={() =>
-                  router.push(`/grades/classes/${id}/edit?className=${className}&id=${id}`)
+                  router.push(`/attendance/classes/${id}/edit?className=${className}&id=${id}`)
                 }
                 className="border border-gray px-6 py-2 text-lg font-semibold hover:bg-yellow"
               >

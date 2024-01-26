@@ -30,7 +30,7 @@ const GradeConfigPage = () => {
   return (
     <>
       <Head>
-        <title>Grade Configuration | Grading System</title>
+        <title>Attendance Configuration | Attendance System</title>
       </Head>
 
       <NavBar />
@@ -51,7 +51,7 @@ const GradeConfigPage = () => {
                   key={classDetails.id}
                   onClick={() =>
                     router.push(
-                      `/grades/classes/${classDetails.id}/edit/?className=${classDetails.className}&id=${classDetails.id}`
+                      `/attendance/classes/${classDetails.id}/edit/?className=${classDetails.className}&id=${classDetails.id}`
                     )
                   }
                   className="mb-4 rounded-md border border-gray p-4 text-left hover:bg-yellow"

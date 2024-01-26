@@ -3,7 +3,7 @@ import SideBarMenu from '@/components/side-bar';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
-export default function ClassesPage() {
+export default function AttendancePage() {
   const router = useRouter();
   const { id } = router.query;
 
@@ -61,7 +61,7 @@ export default function ClassesPage() {
                   key={classDetails.id}
                   onClick={() =>
                     router.push(
-                      `/grades/classes/${classDetails.id}/?className=${classDetails.className}&id=${classDetails.id}`
+                      `/attendance/classes/${classDetails.id}/?className=${classDetails.className}&id=${classDetails.id}`
                     )
                   }
                   className="mb-4 rounded-md border border-gray p-4 text-left hover:bg-yellow"
@@ -91,7 +91,7 @@ export default function ClassesPage() {
                   key={classDetails.id}
                   onClick={() =>
                     router.push(
-                      `/grades/classes/${classDetails.id}/?className=${classDetails.className}&id=${classDetails.id}`
+                      `/attendance/classes/${classDetails.id}/?className=${classDetails.className}&id=${classDetails.id}`
                     )
                   }
                   className="mb-4 rounded-md border border-gray p-4 text-left hover:bg-yellow"

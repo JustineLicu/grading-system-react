@@ -55,7 +55,7 @@ const LoginPage = () => {
       }
     } catch (error) {
       console.error('Error during login:', error.message);
-      alert('An unexpected error occurred. Please try again.');
+      alert('Wrong Username or Password, Try again.');
     }
   };
 
@@ -82,7 +82,7 @@ const LoginPage = () => {
 
   const handleError = (response) => {
     if (response.status === 401) {
-      alert('Authentication failed: Invalid credentials');
+      console.log('Authentication failed: Invalid credentials');
     } else {
       alert(`Request failed. Status: ${response.status}`);
     }
