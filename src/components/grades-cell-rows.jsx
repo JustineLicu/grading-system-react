@@ -8,7 +8,7 @@ export default function GradesCellRows({ setGradesRow, info, ...col }) {
         type="text"
         name={`${col.type.toLowerCase()}`}
         id=""
-        className={` min-w-28 w-[10%] border  text-center focus:z-10 focus:font-bold`}
+        className={`w-28 min-w-[10%] border  text-center focus:z-10 focus:font-bold`}
         onChange={(event) => {
           const { name, value } = event.target;
           setGradesRow((prevValues) => ({

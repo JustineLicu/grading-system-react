@@ -29,7 +29,7 @@ export default function CellRows({
           type="text"
           name=""
           id="student-number"
-          className={` min-w-28 w-[10%] border  text-center focus:z-10 focus:font-bold`}
+          className={`w-28 min-w-[10%] border  text-center focus:z-10 focus:font-bold`}
           value={studentNumber}
           onChange={(e) => setStudentNumber(e.target.value)}
         />
@@ -37,7 +37,7 @@ export default function CellRows({
           type="text"
           name=""
           id="student-name"
-          className={` min-w-28 w-[10%] border  text-center focus:z-10 focus:font-bold`}
+          className={`w-28 min-w-[10%] border  text-center focus:z-10 focus:font-bold`}
           value={studentName}
           onChange={(e) => setStudentName(e.target.value)}
         />
@@ -49,7 +49,7 @@ export default function CellRows({
           type="text"
           name=""
           id="grade"
-          className={` min-w-28 w-[10%] border  text-center focus:z-10 focus:font-bold`}
+          className={`w-28 min-w-[10%] border  text-center focus:z-10 focus:font-bold`}
           value={grade}
           onChange={(e) => setGrade(e.target.value)}
         />
@@ -57,20 +57,20 @@ export default function CellRows({
           type="text"
           name=""
           id="unit"
-          className={` min-w-28 w-[10%] border  text-center focus:z-10 focus:font-bold`}
+          className={`w-28 min-w-[10%] border  text-center focus:z-10 focus:font-bold`}
           value={unit}
           onChange={(e) => setUnit(e.target.value)}
         />
         <select
           id=""
-          className={` min-w-28 w-[10%] border  text-center`}
+          className={`w-28 min-w-[10%] border  text-center`}
           value={status}
           onChange={(e) => setStatus(e.target.value)}
         >
           <option value="FAILED">FAILED</option>
           <option value="PASSED">PASSED</option>
         </select>
-        <div className="min-w-28 flex w-[10%] items-center justify-center gap-2 border">
+        <div className="flex w-28 min-w-[10%] items-center justify-center gap-2 border">
           <button
             type="button"
             onClick={() => {
