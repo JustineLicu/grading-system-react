@@ -22,6 +22,10 @@ export default function SubjectPage() {
   const [editedSubjectCode, setEditedSubjectCode] = useState('');
   const [editedSubjectDescription, setEditedSubjectDescription] = useState('');
   const [subjectToEdit, setSubjectToEdit] = useState(null);
+  const [sectionCourse, setSectionCourse] = useState('');
+  const [sectionYear, setSectionYear] = useState('');
+  const [sectionName, setSectionName] = useState('');
+
   // const [gradeColumns, ] = useState([]);
   const router = useRouter();
   const { sectionId, subjectId } = router.query;
@@ -50,32 +54,6 @@ export default function SubjectPage() {
   useEffect(() => {
     fetchSubjects();
   }, []);
-
-  const fetchSection = async () => {
-    try {
-      const sectionResponse = await fetch(`${host}/subjects/${subjectId}/sections`, {
-        method: 'GET',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      const sectionData = await sectionResponse.json();
-      sectionData;
-    } catch (error) {
-      console.error('Error fetching current section:', error.message);
-    }
-  };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      if (subjectId) {
-        await fetchSection();
-      }
-    };
-
-    fetchData();
-  }, [subjectId]);
 
   const addSubject = async () => {
     try {
@@ -190,6 +168,11 @@ export default function SubjectPage() {
 
   const openSubjectInfo = async (subjectId) => {
     try {
+      if (!subjectId) {
+        console.error('Subject ID is undefined');
+        return;
+      }
+
       // Fetch the sections for the selected subject
       await fetchSection(subjectId);
       // Open the subject info modal or perform other actions as needed
@@ -226,7 +209,7 @@ export default function SubjectPage() {
               <div
                 key={subject.id}
                 className="border-black-500 m-5 w-2/4 cursor-pointer rounded-lg border-2"
-                onClick={() => openSubjectInfo(subject.id)}
+                onClick={() => router.push(`${host}/subjects/${subject.id}/sections`)}
               >
                 <div className="m-4">
                   <h1 className="text-2xl font-semibold">{subject.code}</h1>
@@ -388,7 +371,7 @@ export default function SubjectPage() {
                           value={subjectCourse}
                           onChange={(e) => setSubjectCourse(e.target.value)}
                         >
-                          <option value="" disabled selected>
+                          <option value="" disabled>
                             Course
                           </option>
                           <option value="bsit">BSIT</option>
@@ -406,7 +389,7 @@ export default function SubjectPage() {
                           value={subjectYear}
                           onChange={(e) => setSubjectYear(e.target.value)}
                         >
-                          <option value="" disabled selected>
+                          <option value="" disabled>
                             Year
                           </option>
                           <option value="1">1</option>
@@ -424,7 +407,7 @@ export default function SubjectPage() {
                           value={subjectName}
                           onChange={(e) => setSubjectName(e.target.value)}
                         >
-                          <option value="" disabled selected>
+                          <option value="" disabled>
                             Section
                           </option>
                           <option value="a">A</option>
@@ -458,95 +441,6 @@ export default function SubjectPage() {
             </div>
           </div>
         )}{' '}
-        {isStudentInfoOpen && (
-          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-            <div className="w-3/4">
-              <div className="rounded-lg bg-white p-4">
-                <div className="border-black-500 relative h-full flex-1 flex-grow overflow-hidden border-2 bg-white shadow-md">
-                  <div className="border-b-2 bg-green p-2">
-                    <h2 className="flex justify-center text-xl font-semibold text-yellow">
-                      SUBJECT STUDENT INFORMATION MANAGEMENT
-                    </h2>
-                  </div>
-                  <div className="">
-                    <div className="m-5">
-                      <label className="text-md font-semibold">INSTRUCTOR</label>
-                      <input
-                        type="text"
-                        className="m-1 w-1/3 rounded-lg bg-slate-200 p-1 font-semibold"
-                        placeholder="Instructor"
-                      />
-                      <label className="text-md ml-6 font-semibold">SUBJECT CODE</label>
-                      <input
-                        type="text"
-                        className="m-1 w-1/3 rounded-lg bg-slate-200 p-1 font-semibold"
-                        placeholder="ITEC 116"
-                      />
-                      <label className="text-md font-semibold">SUBJECT DESCRIPTION</label>
-                      <input
-                        type="text"
-                        className="m-1 w-3/5 rounded-lg bg-slate-200 p-1 font-semibold"
-                        placeholder="IT ELECTIVE 4 (SYSTEM INTEGRATION AND ARCHITECTURE 2)"
-                      />
-                    </div>
-                    <div className="m-5 flex justify-end">
-                      {subjects.map((subject) => (
-                        <button
-                          key={subject.id}
-                          className="m-4 w-1/6 rounded-lg bg-green px-6 py-1 text-yellow"
-                          onClick={() => openSubjectInfo(subject.id)}
-                        >
-                          {`${subject.course}-${subject.year}${subject.name}`}
-                        </button>
-                      ))}
-
-                      <button
-                        className="w-4/3 m-4 rounded-lg bg-green px-6 py-1 text-yellow"
-                        onClick={() => openSubjectInfo()}
-                      >
-                        EDIT INFORMATION
-                      </button>
-                    </div>
-                  </div>
-                  <div className="m-5 flex justify-center">
-                    <table className="border-gray-500 border-collapse border ">
-                      <thead>
-                        <tr>
-                          <th className="border-gray-500 border p-2">STUDENT #</th>
-                          <th className="border-gray-500 border p-2">LAST NAME</th>
-                          <th className="border-gray-500 border p-2">FIRST NAME</th>
-                          <th className="border-gray-500 border p-2">MIDDLE NAME</th>
-                          <th className="border-gray-500 border p-2">COURSE</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {/* {studentInfo.students.map((student) => (
-                            <tr key={student.studentNumber}>
-                              <td className="border-gray-500 border p-2">{student.studentNumber}</td>
-                              <td className="border-gray-500 border p-2">{student.lastName}</td>
-                              <td className="border-gray-500 border p-2">{student.firstName}</td>
-                              <td className="border-gray-500 border p-2">{student.middleName}</td>
-                              <td className="border-gray-500 border p-2">{student.course}</td>
-                            </tr>
-                          ))} */}
-                      </tbody>
-                    </table>
-                  </div>
-                  <div className="mr-8 flex justify-end">
-                    {
-                      <button
-                        className="m-4 w-1/6 bg-green px-6 py-1  text-yellow"
-                        onClick={closeStudentInfo}
-                      >
-                        CANCEL
-                      </button>
-                    }
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
