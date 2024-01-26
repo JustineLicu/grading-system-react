@@ -20,7 +20,8 @@ export default function GradeConfigPage() {
     { colId: generateUniqueId(), type: 'Assignment 1', items: 10, percentage: '10%' },
     { colId: generateUniqueId(), type: 'Activity 1', items: 10, percentage: '10%' },
     { colId: generateUniqueId(), type: 'Midterm', items: 100, percentage: '30%' },
-    { colId: generateUniqueId(), type: 'Final', items: 100, percentage: '40%' },
+    { colId: generateUniqueId(), type: 'Final', items: 100, percentage: '30%' },
+    { colId: generateUniqueId(), type: 'Attendance', items: 365, percentage: '10%' },
   ]);
 
   const addSection = async () => {
@@ -106,11 +107,11 @@ export default function GradeConfigPage() {
                 />
               </div>
               <div className="mt-4">
-                <div className="mb-2 text-2xl font-bold">Add column grades</div>
+                <div>
+                  <div className="mb-2 text-2xl font-bold">Add column grades</div>
+                </div>
                 <div className="flex w-full">
                   <div className="w-1/4 border p-2 text-center">Type</div>
-                  <div className="w-1/4 border p-2 text-center">Items</div>
-                  <div className="w-1/4 border p-2 text-center">Percentage</div>
                   <div className="w-1/4 border p-2 text-center">Action</div>
                 </div>
                 {scores.map((score) => (
@@ -122,20 +123,7 @@ export default function GradeConfigPage() {
                       className={`w-1/4 border  text-center focus:z-10 focus:font-bold`}
                       value={score.type}
                     />
-                    <input
-                      type="text"
-                      name=""
-                      id=""
-                      className={`w-1/4 border  text-center focus:z-10 focus:font-bold`}
-                      value={score.items}
-                    />
-                    <input
-                      type="text"
-                      name=""
-                      id=""
-                      className={`w-1/4 border  text-center focus:z-10 focus:font-bold`}
-                      value={score.percentage}
-                    />
+
                     <div className="flex w-1/4 items-center justify-center gap-2 border">
                       <button
                         type="button"
@@ -143,7 +131,18 @@ export default function GradeConfigPage() {
                           const updatedScores = scores.filter((s) => s.type !== score.type);
                           setScores(updatedScores);
                         }}
-                        className={`rounded-sm active:scale-95`}
+                        className={`${
+                          score.type === 'Attendance' ||
+                          score.type === 'Final' ||
+                          score.type === 'Midterm'
+                            ? 'cursor-not-allowed opacity-50'
+                            : ''
+                        } rounded-sm active:scale-95`}
+                        disabled={
+                          score.type === 'Attendance' ||
+                          score.type === 'Final' ||
+                          score.type === 'Midterm'
+                        }
                       >
                         <Image src="/delete.svg" alt="delete" width={20} height={20} />
                       </button>

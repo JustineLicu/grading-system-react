@@ -190,6 +190,7 @@ export default function ClassesPage() {
                 ))}
                 <div className="w-28 min-w-[10%] border p-2 text-center">Grade</div>
                 <div className="w-28 min-w-[10%] border p-2 text-center">Unit</div>
+                <div className="w-28 min-w-[10%] border p-2 text-center">Attendance</div>
                 <div className="w-28 min-w-[10%] border p-2 text-center">Status</div>
                 <div className="w-28 min-w-[10%] border p-2 text-center">Action</div>
               </div>

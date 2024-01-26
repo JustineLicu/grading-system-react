@@ -98,7 +98,7 @@ export default function EditGradeConfigPage() {
               <div className="mt-4">
                 <div className="flex w-full">
                   <div className="w-1/4 border p-2 text-center">Type</div>
-                  <div className="w-1/4 border p-2 text-center">Items</div>
+                  <div className="w-1/4 border p-2 text-center">Items / Days</div>
                   <div className="w-1/4 border p-2 text-center">Percentage</div>
                   <div className="w-1/4 border p-2 text-center">Action</div>
                 </div>
