@@ -90,12 +90,9 @@ export default function SideBarMenu() {
     },
     {
       id: 3,
-      name: 'Announcement',
-      imageLink: '/announcement_icon.svg',
-      urlLink: `/`,
       name: 'Grade Configuration',
       imageLink: '/configuration_icon.svg',
-      urlLink: `/grades/config`,
+      urlLink: `/configuration`,
     },
     {
       id: 4,

@@ -24,10 +24,10 @@ export default function SubjectPage() {
         const subjectsData = await subjectsResponse.json();
         setSubjects(subjectsData);
       } else {
-        showToast(`Error fetching subjects: ${subjectsResponse.statusText}`, false);
+        // showToast(`Error fetching subjects: ${subjectsResponse.statusText}`, false);
       }
     } catch (error) {
-      showToast(`Error fetching subjects: ${error}`, false);
+      // showToast(`Error fetching subjects: ${error}`, false);
     } finally {
       setLoading(false);
     }
