@@ -72,7 +72,7 @@ export default function ClassesPage() {
       return JSON.parse(col.gradeColumns);
     });
 
-  const initialGradesRow = grades.flat()((acc, col) => {
+  const initialGradesRow = grades.flat().reduce((acc, col) => {
     acc[col.type.toLowerCase()] = '';
     return acc;
   }, {});

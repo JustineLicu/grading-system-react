@@ -18,10 +18,9 @@ export default function CellRows({
   const [studentName, setStudentName] = useState(info.studentName);
   const [grade, setGrade] = useState(info.grade);
   const [unit, setUnit] = useState(info.unit);
-  const [status, setStatus] = useState(info.status);
+  const [status, setStatus] = useState('FAILED');
 
   const [gradeScoresColumn, setGradeScoresColumn] = useState('');
-  console.log(gradesRow);
   return (
     <>
       <div className="mb-1 flex w-full">
@@ -42,7 +41,13 @@ export default function CellRows({
           onChange={(e) => setStudentName(e.target.value)}
         />
         {grades.flat().map((col, idx) => (
-          <GradesCellRows key={idx} {...col} setGradesRow={setGradesRow} info={info} />
+          <GradesCellRows
+            key={idx}
+            {...col}
+            setGradesRow={setGradesRow}
+            info={info}
+            gradesRow={gradesRow}
+          />
         ))}
 
         <input
@@ -51,7 +56,10 @@ export default function CellRows({
           id="grade"
           className={`w-28 min-w-[10%] border  text-center focus:z-10 focus:font-bold`}
           value={grade}
-          onChange={(e) => setGrade(e.target.value)}
+          onChange={(e) => {
+            setGrade(e.target.value);
+            setStatus(e.target.value > 70 ? 'PASSED' : 'FAILED');
+          }}
         />
         <input
           type="text"
@@ -61,15 +69,14 @@ export default function CellRows({
           value={unit}
           onChange={(e) => setUnit(e.target.value)}
         />
-        <select
-          id=""
-          className={`w-28 min-w-[10%] border  text-center`}
+        <input
+          type="text"
+          name=""
+          id="unit"
+          className={`w-28 min-w-[10%] border  text-center focus:z-10 focus:font-bold`}
           value={status}
-          onChange={(e) => setStatus(e.target.value)}
-        >
-          <option value="FAILED">FAILED</option>
-          <option value="PASSED">PASSED</option>
-        </select>
+        />
+
         <div className="flex w-28 min-w-[10%] items-center justify-center gap-2 border">
           <button
             type="button"
