@@ -9,6 +9,7 @@ const host = 'http://localhost:8080';
 export default function report() {
   const router = useRouter();
   const [studentData, setStudentData] = useState(null);
+  const [studentGrades, setStudentGrades] = useState([]);
 
   useEffect(() => {
     // Get studentId from the query parameters
@@ -36,11 +37,31 @@ export default function report() {
           console.error('Error fetching student details:', error);
         }
       };
-
+      const fetchGrades = async () => {
+        try {
+          const gradesResponse = await fetch(`${host}/grades?sectionId=1`, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+          const gradesData = await gradesResponse.json();
+          setStudentGrades(gradesData);
+        } catch (error) {
+          console.error('Error fetching current grades:', error.message);
+        }
+      };
       fetchStudentDetails();
+
+      fetchGrades();
     }
   }, [router.query]); // Re-run the effect when the query parameters change
 
+  const studentRows = studentGrades.map((grades, idx) => JSON.parse(grades.gradeRows));
+  // Access the gradeRows array
+  console.log(studentRows.flat());
+  const totalDays = 365;
   return (
     <>
       {/* HEADER */}
@@ -173,14 +194,14 @@ export default function report() {
                       </tr>
                     </thead>
                     <tbody>
-                      {/* Add a loop to dynamically render subject and grade information
-                      {studentData.grades.map((grade, index) => (
+                      {/* Add a loop to dynamically render subject and grade information */}
+                      {studentRows.flat().map((grade, index) => (
                         <tr key={index}>
-                          <td>{grade.subjectName}</td>
+                          <td>X</td>
                           <td>{grade.grade}</td>
                           <td>{grade.status}</td>
                         </tr>
-                      ))} */}
+                      ))}
                     </tbody>
                   </table>
                 </div>
@@ -196,12 +217,14 @@ export default function report() {
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>Days:</td>
-                        {/* <td>{studentData.attendance.totalDays}</td>
-                        <td>{studentData.attendance.presentDays}</td>
-                        <td>{studentData.attendance.absentDays}</td> */}
-                      </tr>
+                      {studentRows.flat().map((attendance, idx) => (
+                        <tr>
+                          <td>Days:</td>
+                          <td>{totalDays}</td>
+                          <td>{attendance.attendance}</td>
+                          <td>{totalDays - attendance.attendance}</td>
+                        </tr>
+                      ))}
                     </tbody>
                   </table>
                 </div>
